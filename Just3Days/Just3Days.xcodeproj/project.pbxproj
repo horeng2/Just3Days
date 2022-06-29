@@ -15,6 +15,7 @@
 		481724C4286C8451008237CF /* Just3DaysUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724C3286C8451008237CF /* Just3DaysUITests.swift */; };
 		481724C6286C8451008237CF /* Just3DaysUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724C5286C8451008237CF /* Just3DaysUITestsLaunchTests.swift */; };
 		481724D4286C8550008237CF /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724D3286C8550008237CF /* Mission.swift */; };
+		481724D6286C857B008237CF /* DaysOfMissionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724D5286C857B008237CF /* DaysOfMissionSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		481724C3286C8451008237CF /* Just3DaysUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Just3DaysUITests.swift; sourceTree = "<group>"; };
 		481724C5286C8451008237CF /* Just3DaysUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Just3DaysUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		481724D3286C8550008237CF /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		481724D5286C857B008237CF /* DaysOfMissionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOfMissionSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				481724D3286C8550008237CF /* Mission.swift */,
+				481724D5286C857B008237CF /* DaysOfMissionSet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				481724D4286C8550008237CF /* Mission.swift in Sources */,
+				481724D6286C857B008237CF /* DaysOfMissionSet.swift in Sources */,
 				481724AB286C8450008237CF /* ContentView.swift in Sources */,
 				481724A9286C8450008237CF /* Just3DaysApp.swift in Sources */,
 			);
