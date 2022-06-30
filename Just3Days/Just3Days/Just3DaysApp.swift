@@ -11,7 +11,7 @@ import SwiftUI
 struct Just3DaysApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MenuTabBar()
         }
     }
 }
