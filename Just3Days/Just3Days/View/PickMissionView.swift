@@ -16,10 +16,12 @@ struct PickMissionView: View {
                 .fontWeight(.bold)
                 .padding(.top, 40)
             ThreeDaysMissionView()
-            Image("pickButton")
-                .resizable()
-                .frame(width: 70, height: 70, alignment: .center)
-                .padding(.top)
+            Button(action: {print("버튼클릭")}) {
+                Image("pickButton")
+                    .resizable()
+                    .frame(width: 70, height: 70, alignment: .center)
+                    .padding(.top)
+            }
             Text("남은 기회: 5회")
                 .font(.system(size: 20))
                 .padding(.bottom, 40)
