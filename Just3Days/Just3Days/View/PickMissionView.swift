@@ -16,6 +16,7 @@ struct PickMissionView: View {
                 .fontWeight(.bold)
                 .padding(.top, 40)
             ThreeDaysMissionView()
+                .padding(.top, 20)
             Button(action: {print("버튼클릭")}) {
                 Image("pickButton")
                     .resizable()
@@ -37,7 +38,6 @@ struct ThreeDaysMissionView: View {
                 .stroke(ColorPalette.lightGray.rgb(), lineWidth: 3)
                 .background(ColorPalette.lightBeige.rgb())
                 .cornerRadius(20)
-                .padding(.top, 30)
                 .padding(.horizontal, 40)
             VStack(spacing: 20) {
                 PickedMissionView(day: "시작하는 날", mission: "파란문제 뿌시기")
