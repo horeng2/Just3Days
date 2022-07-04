@@ -29,7 +29,7 @@ struct TodaysMissionView: View {
     }
 }
 
-struct MissionSuccessView: View {
+struct MissionProgressView: View {
     var body: some View {
         VStack(spacing: 20) {
             Image("TodaysMission")
@@ -37,13 +37,14 @@ struct MissionSuccessView: View {
                 .frame(width: 150, height: 150, alignment: .center)
                 .padding(.top)
             Text("곧 해치울 미션입니다.")
-                .font(.system(size: 25))
+                .font(.system(size: 30))
                 .fontWeight(.bold)
                 .foregroundColor(ColorPalette.mainOrange.rgb())
                 .padding(.top, 40)
             
             Button(action: {print("해냈어요 클릭")}) {
                 Text("해냈어요!")
+                    .font(.system(size: 20))
                     .frame(width: 300, height: 50, alignment: .center)
                     .foregroundColor(Color.black)
                     .background(ColorPalette.lightBeige.rgb())
@@ -51,7 +52,8 @@ struct MissionSuccessView: View {
             }
             .padding(.top, 40)
             Button(action: {print("안할래요 클릭")}) {
-                Text("오늘은 그럴 일이 있어서 안할래요!!")
+                Text("오늘은 그럴 일이 있어서 안할래요!")
+                    .font(.system(size: 18))
                     .frame(width: 300, height: 50, alignment: .center)
                     .foregroundColor(Color.black)
                     .background(ColorPalette.lightBeige.rgb())
@@ -61,37 +63,46 @@ struct MissionSuccessView: View {
     }
 }
 
-struct MissionProgressView: View {
+struct MissionSuccessView: View {
     var body: some View {
         VStack(spacing: 20) {
             Image("MissionSuccess")
                 .resizable()
-                .frame(width: 70, height: 70, alignment: .center)
+                .frame(width: 150, height: 150, alignment: .center)
                 .padding(.top)
             Text("""
-                오늘도
+                오 늘 도
                 내 가 해 냈 다!
                 """)
-            Button(action: {print("나의 업적 감상하기 클릭")}) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .background(ColorPalette.lightBeige.rgb())
-                        .padding(.top, 30)
-                        .padding(.horizontal, 40)
-                    Text("나의 업적 감상하기")
-                }
+                .font(.system(size: 30))
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .foregroundColor(ColorPalette.mainOrange.rgb())
+                .padding(.top, 40)
+            
+            Button(action: {print("업적강상 클릭")}) {
+                Text("나의 업적 감상하기")
+                    .font(.system(size: 20))
+                    .frame(width: 300, height: 50, alignment: .center)
+                    .foregroundColor(Color.black)
+                    .background(ColorPalette.lightBeige.rgb())
+                    .cornerRadius(20)
             }
+            .padding(.top, 40)
             Button(action: {print("알리기 클릭")}) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .background(ColorPalette.lightBeige.rgb())
-                        .padding(.top, 30)
-                        .padding(.horizontal, 40)
-                    Text("만천하에 알리기")
-                }
+                Text("만천하에 알리기")
+                    .font(.system(size: 20))
+                    .frame(width: 300, height: 50, alignment: .center)
+                    .foregroundColor(Color.black)
+                    .background(ColorPalette.lightBeige.rgb())
+                    .cornerRadius(20)
             }
         }
     }
 }
 
-
+struct TodaysMissionView_Previews: PreviewProvider {
+    static var previews: some View {
+        TodaysMissionView(isSuccess: true)
+    }
+}
