@@ -36,8 +36,8 @@ struct ThreeDaysMissionView: View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(ColorPalette.lightGray.rgb(), lineWidth: 3)
-                .background(ColorPalette.lightBeige.rgb())
                 .cornerRadius(20)
+                .background(ColorPalette.lightBeige.rgb())
                 .padding(.horizontal, 40)
             VStack(spacing: 20) {
                 PickedMissionView(day: "시작하는 날", mission: "파란문제 뿌시기")
@@ -60,3 +60,8 @@ struct PickedMissionView: View {
     }
 }
 
+struct PickMissionView_Previews: PreviewProvider {
+    static var previews: some View {
+        PickMissionView()
+    }
+}
