@@ -40,15 +40,15 @@ struct ThreeDaysMissionView: View {
                 .background(ColorPalette.lightBeige.rgb())
                 .padding(.horizontal, 40)
             VStack(spacing: 20) {
-                PickedMissionView(day: "시작하는 날", mission: "파란문제 뿌시기")
-                PickedMissionView(day: "벌써 반이나 지난 날", mission: "제리 똥치우기")
-                PickedMissionView(day: "끝나는 날", mission: "흑마도사 만렙찍기")
+                dailyMissionView(day: "시작하는 날", mission: "파란문제 뿌시기")
+                dailyMissionView(day: "벌써 반이나 지난 날", mission: "제리 똥치우기")
+                dailyMissionView(day: "끝나는 날", mission: "흑마도사 만렙찍기")
             }
         }
     }
 }
 
-struct PickedMissionView: View {
+struct dailyMissionView: View {
     let day: String
     let mission: String
     var body: some View {
