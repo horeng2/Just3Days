@@ -9,53 +9,91 @@ import Foundation
 import SwiftUI
 
 struct AddMissionView: View {
-    @State var missionName = "미션명을 입력주세요."
-    @State var possibleDay = MissionPossibleDay.weekday
+    @Binding var isAddMissionView: Bool
     
     var body: some View {
         VStack {
-            TextField(missionName, text: $missionName)
-                .font(.system(size: 32))
-                .multilineTextAlignment(.center)
-            PossibleDayCheckView(checked: true)
-            ExitButtonsView()
+            AddMissionHeaderView()
+            AddMissionDayView()
+            Spacer()
+            AddMissionExitButtonsView(isAddMissionView: $isAddMissionView)
         }
-        .padding(.top, 40)
     }
 }
 
-struct PossibleDayCheckView: View {
-    var checked: Bool
+struct AddMissionHeaderView: View {
+    @State var missionName = ""
+    
     var body: some View {
-        Text("언제 할 수 있나요?")
-            .font(.system(size: 20))
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 40)
-            .padding(.leading, 40)
-        List {
-            ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDay in
-                HStack {
-                    Button(action: {print("체크 클릭")}) {
-                        Image(systemName: checked ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(ColorPalette.mainOrange.rgb())
-                    }
-
-                    Text(possibleDay.message())
-                }
-                .listRowSeparator(.hidden)
+        TextField(missionName, text: $missionName)
+            .placeholder(when: missionName.isEmpty, alignment: .center) {
+                Text("미션명을 입력해주세요")
+                    .font(.system(size: 30))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(ColorPalette.lightGray.rgb())
             }
+            .font(.system(size: 30))
+            .multilineTextAlignment(.center)
+            .foregroundColor(.black)
+            .padding(.top, 40)
+    }
+}
+
+struct AddMissionDayView: View {
+    @State var pickStatus = makeInitialPickStatus()
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("언제 할 수 있나요?")
+                .font(.system(size: 20))
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(.black)
+                .padding(.top)
+                .padding()
+            PickDayListView(pickStatus: $pickStatus)
         }
         .listStyle(.plain)
-        .padding(.horizontal)
-        
-
+        .padding(.leading, 30)
     }
 }
 
-struct ExitButtonsView: View {
+struct PickDayListView: View {
+    @Binding var pickStatus: [MissionPossibleDay: Bool]
+
+    var body: some View {
+        ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDay in
+            Button {
+                let duplicatePick = pickStatus.map{ $0.value }.contains(true)
+                if duplicatePick {
+                    pickStatus.forEach { day in
+                        pickStatus[day.key] = false
+                    }
+                }
+                pickStatus[possibleDay]?.toggle()
+            } label: {
+                HStack {
+                    Image(systemName: pickStatus[possibleDay] ?? false ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(ColorPalette.mainOrange.rgb())
+                }
+                Text(possibleDay.message())
+                    .foregroundColor(.black)
+            }
+            .listRowSeparator(.hidden)
+            .listSectionSeparator(.hidden)
+            .padding()
+        }
+    }
+}
+
+struct AddMissionExitButtonsView: View {
+    @Binding var isAddMissionView: Bool
+    
     var body: some View {
         HStack {
-            Button(action: {print("취소 클릭")}) {
+            Button {
+                isAddMissionView = false
+            } label: {
                 Text("취소")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
@@ -65,7 +103,9 @@ struct ExitButtonsView: View {
                     .cornerRadius(20)
             }
             .padding(.trailing, 30)
-            Button(action: {print("저장 클릭")}) {
+            Button {
+                isAddMissionView = false
+            } label: {
                 Text("저장")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
@@ -79,8 +119,24 @@ struct ExitButtonsView: View {
     }
 }
 
-struct AddMissionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddMissionView()
+extension View {
+    func placeholder<Content: View>(
+        when willShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content
+    ) -> some View {
+            ZStack(alignment: alignment) {
+                placeholder().opacity(willShow ? 1 : 0)
+                self
+            }
+        }
+}
+
+func makeInitialPickStatus() -> [MissionPossibleDay: Bool] {
+    var pickedDayList = [MissionPossibleDay: Bool]()
+    MissionPossibleDay.allCases.forEach { possibleDay in
+        pickedDayList[possibleDay] = false
     }
+    pickedDayList[.allWeek] = true
+    return pickedDayList
 }
