@@ -11,11 +11,7 @@ struct Mission: Identifiable {
     let id = UUID()
     let emoji: String
     let name: String
-    let possibleDay: MissionDayOfTheWeek
+    let possibleDay: MissionPossibleDay
 }
 
-enum MissionDayOfTheWeek {
-    case allWeek
-    case weekday
-    case weekend
-}
+
