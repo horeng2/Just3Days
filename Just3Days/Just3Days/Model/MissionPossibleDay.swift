@@ -15,11 +15,11 @@ enum MissionPossibleDay: CaseIterable {
     func message() -> String {
         switch self {
         case .allWeek:
-            return "평일에만 가능해요."
-        case .weekday:
-            return "주말에만 할래요."
-        case .weekend:
             return "언제나 할 수 있어요."
+        case .weekday:
+            return "평일에만 가능해요."
+        case .weekend:
+            return "주말에만 할래요."
         }
     }
 }
