@@ -13,5 +13,3 @@ struct Mission: Identifiable {
     let name: String
     let possibleDay: MissionPossibleDay
 }
-
-

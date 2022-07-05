@@ -8,30 +8,35 @@
 import SwiftUI
 
 struct MenuTabBar: View {
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor.white
+    }
+    
     var body: some View {
-            TabView {
-                Text("오늘의 미션 뷰")
+        TabView {
+            TodaysMissionView(isSuccess: false)
                 .tabItem{
                     Image(systemName: "flame")
                     Text("Today")
                 }
-                Text("미션 뽑기 뷰")
-                .tabItem{
+            PickMissionView()
+                .tabItem {
                     Image(systemName: "die.face.5")
                     Text("Pick")
                 }
-                Text("미션 리스트 뷰")
+            MissionListView()
                 .tabItem{
                     Image(systemName: "scroll")
                     Text("List")
                 }
-                Text("나의 업적 뷰")
+            MyAchieveView()
                 .tabItem{
                     Image(systemName: "crown")
                     Text("Achieve")
                 }
-            }
         }
+        .accentColor(ColorPalette.mainOrange.rgb())
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
