@@ -9,33 +9,54 @@ import Foundation
 import SwiftUI
 
 struct MissionListView: View {
-    let missions = [
+    @State var isShowAddMissonView  = false
+    @State var missions = [
         Mission(emoji: "🌤", name: "이불정리하기", possibleDay: .allWeek),
         Mission(emoji: "🧗‍♀️", name: "운동하기", possibleDay: .weekend)
     ]
     
     var body: some View {
         VStack {
-            HStack {
-                Text("리스트")
-                    .font(.system(size: 32))
-                    .fontWeight(.bold)
-                Spacer()
-                Button(action: {print("+클릭")}) {
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 22, height: 22)
-                }
-            }
-            .padding(.horizontal, 27)
-            
-            List(missions) { mission in
-                MissionRow(mission: mission)
-            }
-            .listStyle(.plain)
-            .padding()
+            MissionListHeaderView(isShowAddMissonView: $isShowAddMissonView)
+            MissionListContentView(missions: $missions)
         }
-        .padding(.top)
+    }
+}
+
+struct MissionListHeaderView: View {
+    @Binding var isShowAddMissonView: Bool
+    
+    var body: some View {
+        HStack {
+            Text("리스트")
+                .font(.system(size: 32))
+                .fontWeight(.bold)
+                .padding(.top)
+            Spacer()
+            Button {
+                isShowAddMissonView = true
+            } label: {
+                Image(systemName: "plus")
+                    .resizable()
+                    .frame(width: 22, height: 22)
+                    .fullScreenCover(isPresented: $isShowAddMissonView) {
+                        AddMissionView(isAddMissionView: $isShowAddMissonView)
+                    }
+            }
+        }
+        .padding(.horizontal, 27)
+    }
+}
+
+struct MissionListContentView: View {
+    @Binding var missions: [Mission]
+    
+    var body: some View {
+        List(missions) { mission in
+            MissionRow(mission: mission)
+        }
+        .listStyle(.plain)
+        .padding()
     }
 }
 
@@ -50,12 +71,12 @@ struct MissionRow: View {
                 .font(.system(size: 20))
                 .fontWeight(.bold)
         }
-        .listRowSeparator(.hidden)
         .listRowBackground(
             ColorPalette.beige.rgb()
                 .cornerRadius(10)
                 .padding(10)
         )
+        .listRowSeparator(.hidden)
         .padding(.vertical, 25)
         .padding(.horizontal, 10)
     }
