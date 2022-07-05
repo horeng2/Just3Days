@@ -101,11 +101,18 @@
 				489B3AE9286EFB3E00D23E8A /* PickMissionView.swift */,
 				486C15612873566600F9BE07 /* MissionListView.swift */,
 				486C15632874336400F9BE07 /* AddMissionView.swift */,
-				481606DE2874A7690085A808 /* Extension+View.swift */,
 				486C1567287457FC00F9BE07 /* MyAchieveView.swift */,
 				489B3AEB286F38FE00D23E8A /* ColorPalette.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		481606E02874A9A20085A808 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				481606DE2874A7690085A808 /* Extension+View.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		4817249C286C8450008237CF = {
@@ -136,6 +143,7 @@
 				481724AE286C8451008237CF /* Preview Content */,
 				48059CBD286EB3D90035C8B0 /* View */,
 				481724D2286C851E008237CF /* Model */,
+				481606E02874A9A20085A808 /* Extension */,
 			);
 			path = Just3Days;
 			sourceTree = "<group>";
