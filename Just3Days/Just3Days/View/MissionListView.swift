@@ -27,24 +27,25 @@ struct MissionListHeaderView: View {
     @Binding var isShowAddMissonView: Bool
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             Text("리스트")
                 .font(.system(size: 32))
                 .fontWeight(.bold)
-                .padding(.top)
             Spacer()
             Button {
                 isShowAddMissonView = true
             } label: {
                 Image(systemName: "plus")
                     .resizable()
-                    .frame(width: 22, height: 22)
+                    .frame(width: 22, height: 22, alignment: .center)
                     .fullScreenCover(isPresented: $isShowAddMissonView) {
                         AddMissionView(isAddMissionView: $isShowAddMissonView)
                     }
+                    .foregroundColor(ColorPalette.mainOrange.rgb())
+                    .padding(.bottom, 5)
             }
         }
-        .padding(.horizontal, 27)
+        .padding(27)
     }
 }
 
@@ -54,9 +55,16 @@ struct MissionListContentView: View {
     var body: some View {
         List(missions) { mission in
             MissionRow(mission: mission)
+                .swipeActions {
+                    Button(role: .destructive) {
+                        //데이터 삭제 코드 구현 예정
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                    .tint(ColorPalette.mainOrange.rgb())
+                }
         }
         .listStyle(.plain)
-        .padding()
     }
 }
 
@@ -64,21 +72,19 @@ struct MissionRow: View {
     let mission: Mission
     
     var body: some View {
-        HStack {
-            Text(mission.emoji)
-                .font(.system(size: 20))
-            Text(mission.name)
-                .font(.system(size: 20))
-                .fontWeight(.bold)
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundColor(ColorPalette.beige.rgb())
+            HStack {
+                Text(mission.emoji)
+                    .font(.system(size: 20))
+                Text(mission.name)
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
+            }
+            .padding()
         }
-        .listRowBackground(
-            ColorPalette.beige.rgb()
-                .cornerRadius(10)
-                .padding(10)
-        )
         .listRowSeparator(.hidden)
-        .padding(.vertical, 25)
-        .padding(.horizontal, 10)
     }
 }
 
