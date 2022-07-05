@@ -9,32 +9,44 @@ import Foundation
 import SwiftUI
 
 struct MyAchieveView: View {
-    @State var date = Date()
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                Text("""
-                    지금까지
-                    5일이나 성공했어요.
-                    """)
-                    .font(.system(size: 27))
-                    .fontWeight(.bold)
-                    .foregroundColor(ColorPalette.mainOrange.rgb())
-                    .multilineTextAlignment(.center)
-                DatePicker("달력", selection: $date, displayedComponents: .date)
-                    .datePickerStyle(.graphical)
-                    .accentColor(ColorPalette.mainOrange.rgb())
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(ColorPalette.lightGray.rgb())
-                            .background(ColorPalette.lightBeige.rgb())
-                    )
-                    .padding(.horizontal, 30)
+                MyAchiveHeaderView()
+                MyAchiveCalendarView()
                 AchieveLogView()
-                    .padding(.top)
             }
-            .padding(.top, 40)
         }
+    }
+}
+
+struct MyAchiveHeaderView: View {
+    var body: some View {
+        Text("""
+            지금까지
+            5일이나 성공했어요.
+            """)
+            .font(.system(size: 27))
+            .fontWeight(.bold)
+            .foregroundColor(ColorPalette.mainOrange.rgb())
+            .multilineTextAlignment(.center)
+            .padding(.top, 40)
+    }
+}
+
+struct MyAchiveCalendarView: View {
+    @State var date = Date()
+
+    var body: some View {
+        DatePicker("달력", selection: $date, displayedComponents: .date)
+            .datePickerStyle(.graphical)
+            .accentColor(ColorPalette.mainOrange.rgb())
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(ColorPalette.lightGray.rgb())
+                    .background(ColorPalette.lightBeige.rgb())
+            )
+            .padding(.horizontal, 30)
     }
 }
 
@@ -77,6 +89,7 @@ struct AchieveLogView: View {
             }
             .padding(.bottom, 30)
         }
+        .padding(.top)
     }
 }
 
