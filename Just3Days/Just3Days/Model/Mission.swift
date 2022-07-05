@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Mission {
+struct Mission: Identifiable {
+    let id = UUID()
+    let emoji: String
     let name: String
     let possibleDay: MissionDayOfTheWeek
 }
