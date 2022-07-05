@@ -11,28 +11,30 @@ import SwiftUI
 struct MyAchieveView: View {
     @State var date = Date()
     var body: some View {
-        VStack(alignment: .center) {
-            Text("""
-                지금까지
-                5일이나 성공했어요.
-                """)
-                .font(.system(size: 25))
-                .fontWeight(.bold)
-                .foregroundColor(ColorPalette.mainOrange.rgb())
-                .multilineTextAlignment(.center)
-            DatePicker("달력", selection: $date, displayedComponents: .date)
-                .datePickerStyle(.graphical)
-                .accentColor(ColorPalette.mainOrange.rgb())
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(ColorPalette.lightGray.rgb())
-                        .background(ColorPalette.lightBeige.rgb())
-                )
-                .padding(.horizontal, 30)
-            AchieveLogView()
-                .padding(.top)
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack {
+                Text("""
+                    지금까지
+                    5일이나 성공했어요.
+                    """)
+                    .font(.system(size: 27))
+                    .fontWeight(.bold)
+                    .foregroundColor(ColorPalette.mainOrange.rgb())
+                    .multilineTextAlignment(.center)
+                DatePicker("달력", selection: $date, displayedComponents: .date)
+                    .datePickerStyle(.graphical)
+                    .accentColor(ColorPalette.mainOrange.rgb())
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(ColorPalette.lightGray.rgb())
+                            .background(ColorPalette.lightBeige.rgb())
+                    )
+                    .padding(.horizontal, 30)
+                AchieveLogView()
+                    .padding(.top)
+            }
+            .padding(.top, 40)
         }
-        .frame(height: UIScreen.main.bounds.height, alignment: .center)
     }
 }
 
@@ -68,11 +70,12 @@ struct AchieveLogView: View {
                 .foregroundColor(Color.gray)
             Button(action: {print("눈알클릭")}) {
                 Text("👀")
-                    .font(.system(size: 15))
-                    .frame(width: 30, height: 30)
+                    .font(.system(size: 20))
+                    .frame(width: 40, height: 40)
                     .background(ColorPalette.beige.rgb())
                     .cornerRadius(25)
             }
+            .padding(.bottom, 30)
         }
     }
 }
