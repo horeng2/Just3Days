@@ -26,7 +26,7 @@
 		489B3AEC286F38FE00D23E8A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489B3AEB286F38FE00D23E8A /* ColorPalette.swift */; };
 		48B9AD012875AF1D00965313 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48B9AD002875AF1D00965313 /* Realm */; };
 		48B9AD032875AF1D00965313 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48B9AD022875AF1D00965313 /* RealmSwift */; };
-		48B9AD052875AF4A00965313 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B9AD042875AF4A00965313 /* UserData.swift */; };
+		48B9AD052875AF4A00965313 /* MissionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B9AD042875AF4A00965313 /* MissionsInfo.swift */; };
 		48E7B66B2870020700C69C33 /* TodaysMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B66A2870020700C69C33 /* TodaysMissionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +68,7 @@
 		486C1567287457FC00F9BE07 /* MyAchieveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAchieveView.swift; sourceTree = "<group>"; };
 		489B3AE9286EFB3E00D23E8A /* PickMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickMissionView.swift; sourceTree = "<group>"; };
 		489B3AEB286F38FE00D23E8A /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
-		48B9AD042875AF4A00965313 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		48B9AD042875AF4A00965313 /* MissionsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsInfo.swift; sourceTree = "<group>"; };
 		48E7B66A2870020700C69C33 /* TodaysMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysMissionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +149,7 @@
 				481724AE286C8451008237CF /* Preview Content */,
 				48059CBD286EB3D90035C8B0 /* View */,
 				481724D2286C851E008237CF /* Model */,
+				48B9AD062875BD0100965313 /* Repository */,
 				481606E02874A9A20085A808 /* Extension */,
 			);
 			path = Just3Days;
@@ -186,9 +187,16 @@
 				486C15652874551E00F9BE07 /* MissionPossibleDay.swift */,
 				481724D5286C857B008237CF /* DaysOfMissionSet.swift */,
 				486C155F28734E5400F9BE07 /* MissionStatus.swift */,
-				48B9AD042875AF4A00965313 /* UserData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		48B9AD062875BD0100965313 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				48B9AD042875AF4A00965313 /* MissionsInfo.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,7 +338,7 @@
 			files = (
 				481724D4286C8550008237CF /* Mission.swift in Sources */,
 				486C15642874336400F9BE07 /* AddMissionView.swift in Sources */,
-				48B9AD052875AF4A00965313 /* UserData.swift in Sources */,
+				48B9AD052875AF4A00965313 /* MissionsInfo.swift in Sources */,
 				48E7B66B2870020700C69C33 /* TodaysMissionView.swift in Sources */,
 				486C15662874551E00F9BE07 /* MissionPossibleDay.swift in Sources */,
 				481724D6286C857B008237CF /* DaysOfMissionSet.swift in Sources */,

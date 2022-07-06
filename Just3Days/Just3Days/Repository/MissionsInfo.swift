@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class UserData: Object {
+class MissionsInfo: Object {
     @objc dynamic var id = 0
     @objc dynamic var missionHistory = [Date: Bool]()
     let missionPreset = [SavedMission]()
@@ -19,3 +19,4 @@ class SavedMission: Object {
     @objc dynamic var emoji = "🔥"
     @objc dynamic var possibleDay = ""
 }
+
