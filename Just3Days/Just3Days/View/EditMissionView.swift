@@ -16,17 +16,12 @@ struct EditMissionView: View {
     
     var body: some View {
         VStack {
-            EditMissionTitleView(
-                isModifyMode: $isModifyMode,
-                mission: $mission
-            )
-            EditMissionPossibleDayView(
-                isModifyMode: $isModifyMode,
-                mission: $mission
-            )
+            EditMissionTitleView(mission: $mission)
+            EditMissionPossibleDayView(mission: $mission)
             Spacer()
             ExitButtonsView(
                 isEditMissionView: $isEditMissionView,
+                isModifyMode: $isModifyMode,
                 mission: $mission
             )
         }
@@ -34,7 +29,6 @@ struct EditMissionView: View {
 }
 
 struct EditMissionTitleView: View {
-    @Binding var isModifyMode: Bool
     @Binding var mission: Mission
     
     var body: some View {
@@ -53,7 +47,6 @@ struct EditMissionTitleView: View {
 }
 
 struct EditMissionPossibleDayView: View {
-    @Binding var isModifyMode: Bool
     @Binding var mission: Mission
     
     var body: some View {
@@ -90,6 +83,7 @@ struct EditMissionPossibleDayView: View {
 struct ExitButtonsView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @Binding var isEditMissionView: Bool
+    @Binding var isModifyMode: Bool
     @Binding var mission: Mission
     
     var body: some View {
@@ -109,7 +103,7 @@ struct ExitButtonsView: View {
             
             Button {
                 isEditMissionView = false
-                missionPresetViewModel.create(mission)
+                missionPresetViewModel.save(mission, isModifyMode: isModifyMode)
             } label: {
                 Text("저장")
                     .font(.system(size: 20))

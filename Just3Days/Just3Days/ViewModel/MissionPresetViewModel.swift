@@ -15,8 +15,12 @@ class MissionPresetViewModel: ObservableObject {
         return missionPreset.map{ $0.value }
     }
         
-    func create(_ mission: Mission) {
-        self.missionPreset[mission.id] = mission
+    func save(_ mission: Mission, isModifyMode: Bool) {
+        if isModifyMode {
+            self.update(mission)
+        } else {
+            self.missionPreset[mission.id] = mission
+        }
     }
     
     func update(_ mission: Mission) {
