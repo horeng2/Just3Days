@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  Just3DaysMainView.swift
 //  Just3Days
 //
 //  Created by 서녕 on 2022/06/29.

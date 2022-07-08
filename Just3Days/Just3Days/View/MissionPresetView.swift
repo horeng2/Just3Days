@@ -11,17 +11,18 @@ import SwiftUI
 struct MissionPresetView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @State var isShowAddMissonView  = false
-    @State var missions = missionPresetViewModel.
 
+    
     var body: some View {
+        let missionPreset = missionPresetViewModel.fetch()
         VStack {
-            MissionListHeaderView(isShowAddMissonView: $isShowAddMissonView)
-            MissionListContentView(missions: $missions)
+            MissionPresetHeaderView(isShowAddMissonView: $isShowAddMissonView)
+            MissionPresetContentView(missionPreset: missionPreset)
         }
     }
 }
 
-struct MissionListHeaderView: View {
+struct MissionPresetHeaderView: View {
     @Binding var isShowAddMissonView: Bool
     
     var body: some View {
@@ -47,26 +48,27 @@ struct MissionListHeaderView: View {
     }
 }
 
-struct MissionListContentView: View {
-    @Binding var missions: [Mission]
+struct MissionPresetContentView: View {
+    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
+    let missionPreset: [Mission]
     
     var body: some View {
-        List(missions) { mission in
-            MissionRow(mission: mission)
-                .swipeActions {
-                    Button(role: .destructive) {
-                        //데이터 삭제 코드 구현 예정
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .tint(ColorPalette.mainOrange.rgb())
-                }
+        List {
+            ForEach(missionPreset) { mission in
+                MissionRowView(mission: mission)
+            }
+            .onDelete { indexSet in
+                let index = indexSet[indexSet.startIndex]
+                let mission = missionPreset[index]
+                missionPresetViewModel.delete(mission)
+            }
         }
         .listStyle(.plain)
     }
+
 }
 
-struct MissionRow: View {
+struct MissionRowView: View {
     let mission: Mission
     
     var body: some View {
@@ -86,7 +88,7 @@ struct MissionRow: View {
     }
 }
 
-struct MissionListView_Previews: PreviewProvider {
+struct MissionPresetView_Previews: PreviewProvider {
     static var previews: some View {
         MissionPresetView()
     }
