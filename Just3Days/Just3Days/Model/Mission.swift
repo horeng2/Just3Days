@@ -11,12 +11,11 @@ struct Mission: Identifiable {
     let id: String
     var emoji: String
     var title: String
-    var possibleDay: MissionPossibleDay
+    var possibleDay: MissionPossibleDay?
     
-    init(emoji: String, name: String, possibleDay: MissionPossibleDay) {
+    init(title: String) {
         self.id = UUID().uuidString
-        self.emoji = emoji
-        self.title = name
-        self.possibleDay = possibleDay
+        self.emoji = "🔥"
+        self.title = title
     }
 }

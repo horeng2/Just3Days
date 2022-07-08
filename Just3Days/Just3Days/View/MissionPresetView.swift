@@ -10,20 +10,20 @@ import SwiftUI
 
 struct MissionPresetView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
-    @State var isShowAddMissonView  = false
+    @State var isShowEditMissonView  = false
 
     
     var body: some View {
         let missionPreset = missionPresetViewModel.fetch()
         VStack {
-            MissionPresetHeaderView(isShowAddMissonView: $isShowAddMissonView)
+            MissionPresetHeaderView(isShowEditMissonView: $isShowEditMissonView)
             MissionPresetContentView(missionPreset: missionPreset)
         }
     }
 }
 
 struct MissionPresetHeaderView: View {
-    @Binding var isShowAddMissonView: Bool
+    @Binding var isShowEditMissonView: Bool
     
     var body: some View {
         HStack(alignment: .center) {
@@ -32,13 +32,13 @@ struct MissionPresetHeaderView: View {
                 .fontWeight(.bold)
             Spacer()
             Button {
-                isShowAddMissonView = true
+                isShowEditMissonView = true
             } label: {
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 22, height: 22, alignment: .center)
-                    .fullScreenCover(isPresented: $isShowAddMissonView) {
-                        EditMissionView(isAddMissionView: $isShowAddMissonView)
+                    .fullScreenCover(isPresented: $isShowEditMissonView) {
+                        EditMissionView(isEditMissionView: $isShowEditMissonView, isModifyMode: false)
                     }
                     .foregroundColor(ColorPalette.mainOrange.rgb())
                     .padding(.bottom, 5)
@@ -69,6 +69,8 @@ struct MissionPresetContentView: View {
 }
 
 struct MissionRowView: View {
+    @State var isShowModifyModeEditMissonView = false
+
     let mission: Mission
     
     var body: some View {
@@ -85,6 +87,12 @@ struct MissionRowView: View {
             .padding()
         }
         .listRowSeparator(.hidden)
+        .onTapGesture {
+            isShowModifyModeEditMissonView = true
+        }
+        .fullScreenCover(isPresented: $isShowModifyModeEditMissonView) {
+            EditMissionView(isEditMissionView: $isShowModifyModeEditMissonView, isModifyMode: true, mission: mission)
+        }
     }
 }
 

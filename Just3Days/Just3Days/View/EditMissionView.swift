@@ -10,23 +10,31 @@ import SwiftUI
 
 struct EditMissionView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
-    @Binding var isAddMissionView: Bool
-    @State var mission = Mission(emoji: "", name: "", possibleDay: .allWeek)
-    @State var pickedStatus: [MissionPossibleDay: Bool] = makeInitialPickStatus()
-
+    @Binding var isEditMissionView: Bool
+    @State var isModifyMode: Bool
+    @State var mission = Mission(title: "")
+    
     var body: some View {
         VStack {
-            EditMissionTitleView(mission: $mission)
-            EditMissionPossibleDayView(pickedStatus: $pickedStatus)
+            EditMissionTitleView(
+                isModifyMode: $isModifyMode,
+                mission: $mission
+            )
+            EditMissionPossibleDayView(
+                isModifyMode: $isModifyMode,
+                mission: $mission
+            )
             Spacer()
-            ExitButtonsView(isAddMissionView: $isAddMissionView,
-                            mission: $mission,
-                            pickedStatus: $pickedStatus)
+            ExitButtonsView(
+                isEditMissionView: $isEditMissionView,
+                mission: $mission
+            )
         }
     }
 }
 
 struct EditMissionTitleView: View {
+    @Binding var isModifyMode: Bool
     @Binding var mission: Mission
     
     var body: some View {
@@ -45,7 +53,8 @@ struct EditMissionTitleView: View {
 }
 
 struct EditMissionPossibleDayView: View {
-    @Binding var pickedStatus: [MissionPossibleDay: Bool]
+    @Binding var isModifyMode: Bool
+    @Binding var mission: Mission
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -57,21 +66,15 @@ struct EditMissionPossibleDayView: View {
                 .padding(.top)
                 .padding()
             
-            ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDay in
+            ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDayOption in
                 Button {
-                    let duplicatePick = pickedStatus.map{ $0.value }.contains(true)
-                    if duplicatePick {
-                        pickedStatus.forEach { day in
-                            pickedStatus[day.key] = false
-                        }
-                    }
-                    pickedStatus[possibleDay]?.toggle()
+                    mission.possibleDay = possibleDayOption
                 } label: {
                     HStack {
-                        Image(systemName: pickedStatus[possibleDay] ?? false ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: mission.possibleDay == possibleDayOption ? "checkmark.circle.fill" : "circle")
                             .foregroundColor(ColorPalette.mainOrange.rgb())
                     }
-                    Text(possibleDay.message())
+                    Text(possibleDayOption.message())
                         .foregroundColor(.black)
                 }
                 .listRowSeparator(.hidden)
@@ -86,14 +89,13 @@ struct EditMissionPossibleDayView: View {
 
 struct ExitButtonsView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
-    @Binding var isAddMissionView: Bool
+    @Binding var isEditMissionView: Bool
     @Binding var mission: Mission
-    @Binding var pickedStatus: [MissionPossibleDay: Bool]
     
     var body: some View {
         HStack {
             Button {
-                isAddMissionView = false
+                isEditMissionView = false
             } label: {
                 Text("취소")
                     .font(.system(size: 20))
@@ -104,10 +106,9 @@ struct ExitButtonsView: View {
                     .cornerRadius(20)
             }
             .padding(.trailing, 30)
+            
             Button {
-                isAddMissionView = false
-                let pickedDay = pickedStatus.filter{ $0.value == true }.map{ $0.key }.first ?? .allWeek
-                mission.possibleDay = pickedDay
+                isEditMissionView = false
                 missionPresetViewModel.create(mission)
             } label: {
                 Text("저장")
@@ -121,13 +122,4 @@ struct ExitButtonsView: View {
         }
         .padding(.bottom, 30)
     }
-}
-
-func makeInitialPickStatus() -> [MissionPossibleDay: Bool] {
-    var pickedDayList = [MissionPossibleDay: Bool]()
-    MissionPossibleDay.allCases.forEach { possibleDay in
-        pickedDayList[possibleDay] = false
-    }
-    pickedDayList[.allWeek] = true
-    return pickedDayList
 }
