@@ -8,13 +8,11 @@
 import Foundation
 import SwiftUI
 
-struct MissionListView: View {
+struct MissionPresetView: View {
+    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @State var isShowAddMissonView  = false
-    @State var missions = [
-        Mission(emoji: "🌤", name: "이불정리하기", possibleDay: .allWeek),
-        Mission(emoji: "🧗‍♀️", name: "운동하기", possibleDay: .weekend)
-    ]
-    
+    @State var missions = missionPresetViewModel.
+
     var body: some View {
         VStack {
             MissionListHeaderView(isShowAddMissonView: $isShowAddMissonView)
@@ -90,6 +88,6 @@ struct MissionRow: View {
 
 struct MissionListView_Previews: PreviewProvider {
     static var previews: some View {
-        MissionListView()
+        MissionPresetView()
     }
 }

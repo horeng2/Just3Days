@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct MenuTabBar: View {
+struct Just3DaysMainView: View {
+    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
+    
     init() {
         UITabBar.appearance().backgroundColor = UIColor.white
     }
@@ -24,7 +26,7 @@ struct MenuTabBar: View {
                     Image(systemName: "die.face.5")
                     Text("Pick")
                 }
-            MissionListView()
+            MissionPresetView()
                 .tabItem{
                     Image(systemName: "scroll")
                     Text("List")
@@ -41,6 +43,6 @@ struct MenuTabBar: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuTabBar()
+        Just3DaysMainView()
     }
 }
