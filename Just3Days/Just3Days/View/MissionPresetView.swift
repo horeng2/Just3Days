@@ -38,7 +38,7 @@ struct MissionPresetHeaderView: View {
                     .resizable()
                     .frame(width: 22, height: 22, alignment: .center)
                     .fullScreenCover(isPresented: $isShowAddMissonView) {
-                        AddMissionView(isAddMissionView: $isShowAddMissonView)
+                        EditMissionView(isAddMissionView: $isShowAddMissonView)
                     }
                     .foregroundColor(ColorPalette.mainOrange.rgb())
                     .padding(.bottom, 5)
@@ -78,7 +78,7 @@ struct MissionRowView: View {
             HStack {
                 Text(mission.emoji)
                     .font(.system(size: 20))
-                Text(mission.name)
+                Text(mission.title)
                     .font(.system(size: 20))
                     .fontWeight(.bold)
             }

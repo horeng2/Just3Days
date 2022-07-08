@@ -9,14 +9,14 @@ import Foundation
 
 struct Mission: Identifiable {
     let id: String
-    let emoji: String
-    let name: String
-    let possibleDay: MissionPossibleDay
+    var emoji: String
+    var title: String
+    var possibleDay: MissionPossibleDay
     
     init(emoji: String, name: String, possibleDay: MissionPossibleDay) {
         self.id = UUID().uuidString
         self.emoji = emoji
-        self.name = name
+        self.title = name
         self.possibleDay = possibleDay
     }
 }

@@ -8,25 +8,30 @@
 import Foundation
 import SwiftUI
 
-struct AddMissionView: View {
+struct EditMissionView: View {
+    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @Binding var isAddMissionView: Bool
-    
+    @State var mission = Mission(emoji: "", name: "", possibleDay: .allWeek)
+    @State var pickedStatus: [MissionPossibleDay: Bool] = makeInitialPickStatus()
+
     var body: some View {
         VStack {
-            AddMissionHeaderView()
-            AddMissionDayView()
+            EditMissionTitleView(mission: $mission)
+            EditMissionPossibleDayView(pickedStatus: $pickedStatus)
             Spacer()
-            AddMissionExitButtonsView(isAddMissionView: $isAddMissionView)
+            ExitButtonsView(isAddMissionView: $isAddMissionView,
+                            mission: $mission,
+                            pickedStatus: $pickedStatus)
         }
     }
 }
 
-struct AddMissionHeaderView: View {
-    @State var missionName = ""
+struct EditMissionTitleView: View {
+    @Binding var mission: Mission
     
     var body: some View {
-        TextField(missionName, text: $missionName)
-            .placeholder(when: missionName.isEmpty, alignment: .center) {
+        TextField(mission.title, text: $mission.title)
+            .placeholder(when: mission.title.isEmpty, alignment: .center) {
                 Text("미션명을 입력해주세요")
                     .font(.system(size: 30))
                     .multilineTextAlignment(.center)
@@ -39,9 +44,9 @@ struct AddMissionHeaderView: View {
     }
 }
 
-struct AddMissionDayView: View {
-    @State var pickStatus = makeInitialPickStatus()
-
+struct EditMissionPossibleDayView: View {
+    @Binding var pickedStatus: [MissionPossibleDay: Bool]
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("언제 할 수 있나요?")
@@ -51,43 +56,39 @@ struct AddMissionDayView: View {
                 .foregroundColor(.black)
                 .padding(.top)
                 .padding()
-            PickDayListView(pickStatus: $pickStatus)
+            
+            ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDay in
+                Button {
+                    let duplicatePick = pickedStatus.map{ $0.value }.contains(true)
+                    if duplicatePick {
+                        pickedStatus.forEach { day in
+                            pickedStatus[day.key] = false
+                        }
+                    }
+                    pickedStatus[possibleDay]?.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: pickedStatus[possibleDay] ?? false ? "checkmark.circle.fill" : "circle")
+                            .foregroundColor(ColorPalette.mainOrange.rgb())
+                    }
+                    Text(possibleDay.message())
+                        .foregroundColor(.black)
+                }
+                .listRowSeparator(.hidden)
+                .listSectionSeparator(.hidden)
+                .padding()
+            }
         }
         .listStyle(.plain)
         .padding(.leading, 30)
     }
 }
 
-struct PickDayListView: View {
-    @Binding var pickStatus: [MissionPossibleDay: Bool]
-
-    var body: some View {
-        ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDay in
-            Button {
-                let duplicatePick = pickStatus.map{ $0.value }.contains(true)
-                if duplicatePick {
-                    pickStatus.forEach { day in
-                        pickStatus[day.key] = false
-                    }
-                }
-                pickStatus[possibleDay]?.toggle()
-            } label: {
-                HStack {
-                    Image(systemName: pickStatus[possibleDay] ?? false ? "checkmark.circle.fill" : "circle")
-                        .foregroundColor(ColorPalette.mainOrange.rgb())
-                }
-                Text(possibleDay.message())
-                    .foregroundColor(.black)
-            }
-            .listRowSeparator(.hidden)
-            .listSectionSeparator(.hidden)
-            .padding()
-        }
-    }
-}
-
-struct AddMissionExitButtonsView: View {
+struct ExitButtonsView: View {
+    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @Binding var isAddMissionView: Bool
+    @Binding var mission: Mission
+    @Binding var pickedStatus: [MissionPossibleDay: Bool]
     
     var body: some View {
         HStack {
@@ -105,6 +106,9 @@ struct AddMissionExitButtonsView: View {
             .padding(.trailing, 30)
             Button {
                 isAddMissionView = false
+                let pickedDay = pickedStatus.filter{ $0.value == true }.map{ $0.key }.first ?? .allWeek
+                mission.possibleDay = pickedDay
+                missionPresetViewModel.create(mission)
             } label: {
                 Text("저장")
                     .font(.system(size: 20))

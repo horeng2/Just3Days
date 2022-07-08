@@ -19,7 +19,7 @@
 		481724D6286C857B008237CF /* DaysOfMissionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724D5286C857B008237CF /* DaysOfMissionSet.swift */; };
 		486C156028734E5400F9BE07 /* MissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C155F28734E5400F9BE07 /* MissionStatus.swift */; };
 		486C15622873566600F9BE07 /* MissionPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C15612873566600F9BE07 /* MissionPresetView.swift */; };
-		486C15642874336400F9BE07 /* AddMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C15632874336400F9BE07 /* AddMissionView.swift */; };
+		486C15642874336400F9BE07 /* EditMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C15632874336400F9BE07 /* EditMissionView.swift */; };
 		486C15662874551E00F9BE07 /* MissionPossibleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C15652874551E00F9BE07 /* MissionPossibleDay.swift */; };
 		486C1568287457FC00F9BE07 /* MyAchieveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C1567287457FC00F9BE07 /* MyAchieveView.swift */; };
 		489B3AEA286EFB3E00D23E8A /* PickMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489B3AE9286EFB3E00D23E8A /* PickMissionView.swift */; };
@@ -61,7 +61,7 @@
 		481724D5286C857B008237CF /* DaysOfMissionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOfMissionSet.swift; sourceTree = "<group>"; };
 		486C155F28734E5400F9BE07 /* MissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionStatus.swift; sourceTree = "<group>"; };
 		486C15612873566600F9BE07 /* MissionPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionPresetView.swift; sourceTree = "<group>"; };
-		486C15632874336400F9BE07 /* AddMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMissionView.swift; sourceTree = "<group>"; };
+		486C15632874336400F9BE07 /* EditMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMissionView.swift; sourceTree = "<group>"; };
 		486C15652874551E00F9BE07 /* MissionPossibleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionPossibleDay.swift; sourceTree = "<group>"; };
 		486C1567287457FC00F9BE07 /* MyAchieveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAchieveView.swift; sourceTree = "<group>"; };
 		489B3AE9286EFB3E00D23E8A /* PickMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickMissionView.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 				48E7B66A2870020700C69C33 /* TodaysMissionView.swift */,
 				489B3AE9286EFB3E00D23E8A /* PickMissionView.swift */,
 				486C15612873566600F9BE07 /* MissionPresetView.swift */,
-				486C15632874336400F9BE07 /* AddMissionView.swift */,
+				486C15632874336400F9BE07 /* EditMissionView.swift */,
 				486C1567287457FC00F9BE07 /* MyAchieveView.swift */,
 				489B3AEB286F38FE00D23E8A /* ColorPalette.swift */,
 			);
@@ -326,7 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				481724D4286C8550008237CF /* Mission.swift in Sources */,
-				486C15642874336400F9BE07 /* AddMissionView.swift in Sources */,
+				486C15642874336400F9BE07 /* EditMissionView.swift in Sources */,
 				48E7B66B2870020700C69C33 /* TodaysMissionView.swift in Sources */,
 				486C15662874551E00F9BE07 /* MissionPossibleDay.swift in Sources */,
 				481724D6286C857B008237CF /* DaysOfMissionSet.swift in Sources */,
