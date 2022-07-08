@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Just3DaysApp: App {
+    @StateObject var missionPresetViewModel = MissionPresetViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            MenuTabBar()
+            Just3DaysMainView()
+                .environmentObject(missionPresetViewModel)
         }
     }
 }
