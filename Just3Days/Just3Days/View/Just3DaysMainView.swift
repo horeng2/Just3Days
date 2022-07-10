@@ -31,7 +31,7 @@ struct Just3DaysMainView: View {
                     Image(systemName: "scroll")
                     Text("List")
                 }
-            MyAchieveView()
+            MissionLogView()
                 .tabItem{
                     Image(systemName: "crown")
                     Text("Achieve")
