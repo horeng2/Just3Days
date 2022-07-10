@@ -12,7 +12,7 @@ class MissionPresetViewModel: ObservableObject {
     @Published var missionPreset = [String: Mission]()
 
     func fetch() -> [Mission] {
-        return missionPreset.map{ $0.value }
+        return self.missionPreset.map{ $0.value }
     }
         
     func save(_ mission: Mission, isModifyMode: Bool) {

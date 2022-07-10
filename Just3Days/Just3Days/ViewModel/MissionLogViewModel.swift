@@ -6,3 +6,17 @@
 //
 
 import Foundation
+import Combine
+
+class MissionLogViewModel: ObservableObject {
+    @Published var missionLog = [Date: Mission]()
+    let missionPresetViewModel = MissionPresetViewModel()
+    
+    func save(_ mission: Mission, date: Date) {
+        self.missionLog[date] = mission
+    }
+    
+    func updateSuccess(_ mission: Mission, date: Date) {
+        self.missionLog[date]?.isSuccess = true
+    }
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DaysOfMissionSet {
+enum DayOfMission: CaseIterable {
     case firstDay
     case secondDay
     case thirdDay
