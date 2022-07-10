@@ -1,5 +1,5 @@
 //
-//  MyAchieceView.swift
+//  MissionLogView.swift
 //  Just3Days
 //
 //  Created by 서녕 on 2022/07/05.
@@ -8,19 +8,19 @@
 import Foundation
 import SwiftUI
 
-struct MyAchieveView: View {
+struct MissionLogView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                MyAchiveHeaderView()
-                MyAchiveCalendarView()
-                AchieveLogView()
+                MissionLogHeaderView()
+                MissionLogCalendarView()
+                MissionLogDiscriptionView()
             }
         }
     }
 }
 
-struct MyAchiveHeaderView: View {
+struct MissionLogHeaderView: View {
     var body: some View {
         Text("""
             지금까지
@@ -34,7 +34,7 @@ struct MyAchiveHeaderView: View {
     }
 }
 
-struct MyAchiveCalendarView: View {
+struct MissionLogCalendarView: View {
     @State var date = Date()
 
     var body: some View {
@@ -50,7 +50,7 @@ struct MyAchiveCalendarView: View {
     }
 }
 
-struct AchieveLogView: View {
+struct MissionLogDiscriptionView: View {
     var body: some View {
         VStack {
             Text("3일 미션 현황")
@@ -93,8 +93,8 @@ struct AchieveLogView: View {
     }
 }
 
-struct MyAchieveView_Previews: PreviewProvider {
+struct MissionLogView_Previews: PreviewProvider {
     static var previews: some View {
-        MyAchieveView()
+        MissionLogView()
     }
 }
