@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class MissionPresetViewModel: ObservableObject {
-    @Published var missionPreset = [String: Mission]()
+    @Published var missionPreset = ["1": Mission(title: "1"), "2": Mission(title: "2"), "3": Mission(title: "3")]
 
     func fetch() -> [Mission] {
         return self.missionPreset.map{ $0.value }

@@ -83,20 +83,42 @@ struct pickMissionButtonView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @Binding var randomMissionSet: [DayOfMission: Mission]
     @State var chance = 5
+    @State var showingAlert = false
+    @State var noChanceAlert = false
     
     var body: some View {
         Button {
+            showingAlert = true
             if chance > 0 {
                 randomMissionSet = pickRandomElement(missionPresetViewModel.fetch())
                 chance -= 1
             } else {
-                print("기회가 없어용")    //alert 구현 예정
+                noChanceAlert = true
             }
         } label: {
             Image("pickButton")
                 .resizable()
                 .frame(width: 70, height: 70, alignment: .center)
                 .padding(.top)
+        }
+        .alert(isPresented: $showingAlert) {
+            if noChanceAlert {
+                return Alert(title: Text("기회가 없어요"), message: nil, dismissButton: .default(Text("결정")))
+            } else {
+                let firstButton = Alert.Button.default(Text("결정")) {
+                    print("결정")
+                }
+                let secondButton = Alert.Button.cancel(Text("다시 뽑기")) {
+                    print("다시뽑기")
+                }
+                return Alert(title: Text("뽑기 결과"),
+                             message: Text("""
+                                \(randomMissionSet[.firstDay]?.title ?? "")
+                                \(randomMissionSet[.secondDay]?.title ?? "")
+                                \(randomMissionSet[.thirdDay]?.title ?? "")
+                                """)
+                             , primaryButton: firstButton, secondaryButton: secondButton)
+            }
         }
         
         Text("남은 기회: \(chance)회")
