@@ -11,21 +11,29 @@ import SwiftUI
 struct MissionPresetView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @State var isShowEditMissonView  = false
-
+    @State var isShowModifyMissonView  = false
     
     var body: some View {
-        let missionPreset = missionPresetViewModel.fetch()
         VStack {
-            MissionPresetHeaderView(isShowEditMissonView: $isShowEditMissonView)
-            MissionPresetContentView(missionPreset: missionPreset)
+            headerView()
+            content
+        }
+    }
+    
+    @ViewBuilder var content: some View {
+        if missionPresetViewModel.fetch().isEmpty {
+            Spacer()
+            Text("미션을 등록해주세요!")
+            Spacer()
+        } else {
+            missionPresetListView()
         }
     }
 }
 
-struct MissionPresetHeaderView: View {
-    @Binding var isShowEditMissonView: Bool
-    
-    var body: some View {
+// MARK: - Displaying Content
+extension MissionPresetView {
+    func headerView() -> some View {
         HStack(alignment: .center) {
             Text("리스트")
                 .font(.system(size: 32))
@@ -46,34 +54,8 @@ struct MissionPresetHeaderView: View {
         }
         .padding(27)
     }
-}
-
-struct MissionPresetContentView: View {
-    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
-    let missionPreset: [Mission]
     
-    var body: some View {
-        List {
-            ForEach(missionPreset) { mission in
-                MissionRowView(mission: mission)
-            }
-            .onDelete { indexSet in
-                let index = indexSet[indexSet.startIndex]
-                let mission = missionPreset[index]
-                missionPresetViewModel.delete(mission)
-            }
-        }
-        .listStyle(.plain)
-    }
-
-}
-
-struct MissionRowView: View {
-    @State var isShowModifyModeEditMissonView = false
-
-    let mission: Mission
-    
-    var body: some View {
+    func missionPresetRowView(mission: Mission) -> some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 20)
                 .foregroundColor(ColorPalette.beige.rgb())
@@ -88,13 +70,32 @@ struct MissionRowView: View {
         }
         .listRowSeparator(.hidden)
         .onTapGesture {
-            isShowModifyModeEditMissonView = true
+            isShowModifyMissonView = true
         }
-        .fullScreenCover(isPresented: $isShowModifyModeEditMissonView) {
-            EditMissionView(isEditMissionView: $isShowModifyModeEditMissonView, isModifyMode: true, mission: mission)
+        .fullScreenCover(isPresented: $isShowModifyMissonView) {
+            EditMissionView(isEditMissionView: $isShowModifyMissonView, isModifyMode: true, mission: mission)
         }
     }
 }
+
+//MARK: - Loading Content
+extension MissionPresetView {
+    func missionPresetListView() -> some View {
+        List {
+            let missionPreset = missionPresetViewModel.fetch()
+            ForEach(missionPreset) { mission in
+                missionPresetRowView(mission: mission)
+            }
+            .onDelete { indexSet in
+                let index = indexSet[indexSet.startIndex]
+                let mission = missionPreset[index]
+                missionPresetViewModel.delete(mission)
+            }
+        }
+        .listStyle(.plain)
+    }
+}
+
 
 struct MissionPresetView_Previews: PreviewProvider {
     static var previews: some View {
