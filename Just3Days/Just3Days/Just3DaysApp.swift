@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct Just3DaysApp: App {
     @StateObject var missionPresetViewModel = MissionPresetViewModel()
+    @StateObject var missionLogViewModel = MissionLogViewModel()
     
     var body: some Scene {
         WindowGroup {
             Just3DaysMainView()
                 .environmentObject(missionPresetViewModel)
+                .environmentObject(missionLogViewModel)
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Just3DaysMainView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
+    @EnvironmentObject var missionLogViewModel: MissionLogViewModel
     
     init() {
         UITabBar.appearance().backgroundColor = UIColor.white
@@ -21,7 +22,7 @@ struct Just3DaysMainView: View {
                     Image(systemName: "flame")
                     Text("Today")
                 }
-            PickMissionView()
+            PickMissionView(missionLogViewModel: missionLogViewModel, currentMissionSet: missionLogViewModel.fetch())
                 .tabItem {
                     Image(systemName: "die.face.5")
                     Text("Pick")

@@ -22,4 +22,15 @@ enum DayOfMission: CaseIterable {
             return "끝나는 날"
         }
     }
+    
+    var date: Date {
+        switch self {
+        case .firstDay:
+            return Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
+        case .secondDay:
+            return Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+        case .thirdDay:
+            return Calendar.current.date(byAdding: .day, value: 0, to: Date()) ?? Date()
+        }
+    }
 }

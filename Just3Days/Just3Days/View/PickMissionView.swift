@@ -9,61 +9,55 @@ import Foundation
 import SwiftUI
 
 struct PickMissionView: View {
-    @State var randomMissionSet: [DayOfMission: Mission] = {
-        var missions = [DayOfMission: Mission]()
-        DayOfMission.allCases.forEach { day in
-            missions[day] = Mission(title: "미션을 뽑아주세요.")
-        }
-        return missions
-    }()
+    @StateObject var missionLogViewModel = MissionLogViewModel()
+    @State var currentMissionSet: [DayOfMission: Mission]
+    @State var chance = 5
     
     var body: some View {
         VStack(spacing: 20) {
-            PickMissionHeaderView()
-            ThreeDaysMissionView(randomMissionSet: $randomMissionSet)
-            pickMissionButtonView(randomMissionSet: $randomMissionSet)
+            PickMissionHeaderView(chance: $chance)
+            ThreeDaysMissionView(currentMissionSet: $currentMissionSet)
+            pickMissionButtonView(missionLogViewModel: missionLogViewModel, currentMissionSet: $currentMissionSet, chance: $chance)
         }
         .background(ColorPalette.beige.rgb())
     }
 }
 
-func pickRandomElement(_ mission: [Mission]) -> [DayOfMission: Mission] {
-    var shuffledMissions = mission.shuffled()
-    var randomMissionSet = [DayOfMission: Mission]()
-    
-    DayOfMission.allCases.forEach { day in
-        randomMissionSet[day] = shuffledMissions.last
-        shuffledMissions.removeLast()
-    }
-    
-    return randomMissionSet
-}
-
 struct PickMissionHeaderView: View {
+    @Binding var chance: Int
+
     var body: some View {
-        Text("미 션  뽑 기")
-            .font(.system(size: 32))
-            .fontWeight(.bold)
-            .padding(.top, 40)
+        if chance > 0 {
+            Text("미 션  뽑 기")
+                .font(.system(size: 32))
+                .fontWeight(.bold)
+                .padding(.top, 40)
+        } else {
+            Text("미 션 목 록")
+                .font(.system(size: 32))
+                .fontWeight(.bold)
+                .padding(.top, 40)
+        }
     }
 }
 
 struct ThreeDaysMissionView: View {
-    @Binding var randomMissionSet: [DayOfMission: Mission]
+    @Binding var currentMissionSet: [DayOfMission: Mission]
     var body: some View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(ColorPalette.lightGray.rgb(), lineWidth: 3)
-                .cornerRadius(20)
                 .background(ColorPalette.lightBeige.rgb())
+                .cornerRadius(20)
                 .padding(.horizontal, 40)
             VStack(spacing: 20) {
                 ForEach(DayOfMission.allCases, id: \.self) { day in
-                    dailyMissionView(day: day.discription, mission: randomMissionSet[day]?.title ?? "")
+                    dailyMissionView(day: day.discription, mission: currentMissionSet[day]?.title ?? "")
                 }
             }
         }
         .padding(.top, 20)
+        .padding(.bottom, 40)
     }
 }
 
@@ -81,54 +75,69 @@ struct dailyMissionView: View {
 
 struct pickMissionButtonView: View {
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
-    @Binding var randomMissionSet: [DayOfMission: Mission]
-    @State var chance = 5
-    @State var showingAlert = false
+    @ObservedObject var missionLogViewModel: MissionLogViewModel
+    @Binding var currentMissionSet: [DayOfMission: Mission]
+    @Binding var chance: Int
+    @State var tapButtonAlert = false
     @State var noChanceAlert = false
     
     var body: some View {
         Button {
-            showingAlert = true
-            if chance > 0 {
-                randomMissionSet = pickRandomElement(missionPresetViewModel.fetch())
+            tapButtonAlert = true
+            if chance > .zero {
+                currentMissionSet = pickRandomElement(missionPresetViewModel.fetch())
                 chance -= 1
             } else {
                 noChanceAlert = true
             }
         } label: {
-            Image("pickButton")
-                .resizable()
-                .frame(width: 70, height: 70, alignment: .center)
-                .padding(.top)
+            if chance > .zero {
+                Image("pickButton")
+                    .resizable()
+                    .frame(width: 70, height: 70, alignment: .center)
+                    .padding(.top)
+            }
         }
-        .alert(isPresented: $showingAlert) {
+        .alert(isPresented: $tapButtonAlert) {
             if noChanceAlert {
-                return Alert(title: Text("기회가 없어요"), message: nil, dismissButton: .default(Text("결정")))
-            } else {
-                let firstButton = Alert.Button.default(Text("결정")) {
-                    print("결정")
+                let button = Alert.Button.default(Text("이대로 결정")) {
+                    missionLogViewModel.saveMissionSet(currentMissionSet)
                 }
-                let secondButton = Alert.Button.cancel(Text("다시 뽑기")) {
-                    print("다시뽑기")
+                return Alert(title: Text("다시 뽑기 기회를 다 썼어요!"), message: nil, dismissButton: button)
+            } else {
+                let firstButton = Alert.Button.cancel(Text("다시 뽑기"))
+                let secondButton = Alert.Button.default(Text("결정")) {
+                    chance = .zero
+                    missionLogViewModel.saveMissionSet(currentMissionSet)
                 }
                 return Alert(title: Text("뽑기 결과"),
                              message: Text("""
-                                \(randomMissionSet[.firstDay]?.title ?? "")
-                                \(randomMissionSet[.secondDay]?.title ?? "")
-                                \(randomMissionSet[.thirdDay]?.title ?? "")
+                                \(currentMissionSet[.firstDay]?.title ?? "")
+                                \(currentMissionSet[.secondDay]?.title ?? "")
+                                \(currentMissionSet[.thirdDay]?.title ?? "")
                                 """)
                              , primaryButton: firstButton, secondaryButton: secondButton)
             }
         }
-        
-        Text("남은 기회: \(chance)회")
-            .font(.system(size: 20))
-            .padding(.bottom, 40)
+        if chance > .zero {
+            Text("남은 기회: \(chance)회")
+                .font(.system(size: 20))
+                .padding(.bottom, 40)
+        }
     }
 }
 
-struct PickMissionView_Previews: PreviewProvider {
-    static var previews: some View {
-        PickMissionView()
+extension pickMissionButtonView {
+    func pickRandomElement(_ mission: [Mission]) -> [DayOfMission: Mission] {
+        var shuffledMissions = mission.shuffled()
+        var randomMissionSet = [DayOfMission: Mission]()
+        
+        DayOfMission.allCases.forEach { day in
+            randomMissionSet[day] = shuffledMissions.last
+            shuffledMissions.removeLast()
+        }
+        
+        return randomMissionSet
     }
 }
+
