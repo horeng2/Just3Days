@@ -23,14 +23,18 @@ enum DayOfMission: CaseIterable {
         }
     }
     
-    var date: Date {
+    var date: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         switch self {
         case .firstDay:
-            return Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
+            return Date().toString()
         case .secondDay:
-            return Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+            return Date().addingTimeInterval(3600 * 24).toString()
         case .thirdDay:
-            return Calendar.current.date(byAdding: .day, value: 0, to: Date()) ?? Date()
+            return Date().addingTimeInterval(3600 * 24 * 2).toString()
         }
     }
 }
