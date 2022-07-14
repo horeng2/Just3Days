@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Just3DaysMainView: View {
+    @State var index = 0
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @EnvironmentObject var missionLogViewModel: MissionLogViewModel
     
@@ -16,27 +17,31 @@ struct Just3DaysMainView: View {
     }
     
     var body: some View {
-        TabView {
+        TabView(selection: $index) {
             TodaysMissionView(isSuccess: false)
                 .tabItem{
                     Image(systemName: "flame")
                     Text("Today")
                 }
-            PickMissionView(missionLogViewModel: missionLogViewModel, currentMissionSet: missionLogViewModel.fetch())
+                .tag(0)
+            PickMissionView(missionLogViewModel: missionLogViewModel, pickedMissions: missionLogViewModel.fetch(),index: $index)
                 .tabItem {
                     Image(systemName: "die.face.5")
                     Text("Pick")
                 }
+                .tag(1)
             MissionPresetView()
                 .tabItem{
                     Image(systemName: "scroll")
                     Text("List")
                 }
+                .tag(2)
             MissionLogView()
                 .tabItem{
                     Image(systemName: "crown")
                     Text("Achieve")
                 }
+                .tag(3)
         }
         .accentColor(ColorPalette.mainOrange.rgb())
     }
