@@ -70,7 +70,7 @@ extension PickMissionView {
     func pickMissionButtonView() -> some View {
         return Button {
             let missionPreset = missionPresetViewModel.fetch()
-            if missionPreset.isEmpty {
+            if missionPreset.count < 3 {
                 missionPresetIsEmpty = true
             } else {
                 isTapPickButton = true
@@ -99,7 +99,7 @@ extension PickMissionView {
         let moveButton = Alert.Button.default(Text("등록")) {
             self.index = 2
         }
-        return Alert(title: Text("등록된 미션이 없어요!"), primaryButton: cancelButton, secondaryButton: moveButton)
+        return Alert(title: Text("미션을 3개 이상 등록해주세요!"), primaryButton: cancelButton, secondaryButton: moveButton)
     }
 }
 
