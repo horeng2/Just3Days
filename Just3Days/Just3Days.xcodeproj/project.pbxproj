@@ -27,6 +27,7 @@
 		489B3AEC286F38FE00D23E8A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489B3AEB286F38FE00D23E8A /* ColorPalette.swift */; };
 		48B9AD0F2878662A00965313 /* MissionPresetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B9AD0E2878662A00965313 /* MissionPresetViewModel.swift */; };
 		48E7B66B2870020700C69C33 /* TodaysMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B66A2870020700C69C33 /* TodaysMissionView.swift */; };
+		48FCAF6D2880426400BDF307 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FCAF6C2880426400BDF307 /* Extension+Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		489B3AEB286F38FE00D23E8A /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		48B9AD0E2878662A00965313 /* MissionPresetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionPresetViewModel.swift; sourceTree = "<group>"; };
 		48E7B66A2870020700C69C33 /* TodaysMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysMissionView.swift; sourceTree = "<group>"; };
+		48FCAF6C2880426400BDF307 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 			children = (
 				48B9AD0E2878662A00965313 /* MissionPresetViewModel.swift */,
 				484A5677287AFCDB0015FA7C /* MissionLogViewModel.swift */,
+				48FCAF6C2880426400BDF307 /* Extension+Date.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				48E7B66B2870020700C69C33 /* TodaysMissionView.swift in Sources */,
 				486C15662874551E00F9BE07 /* MissionPossibleDay.swift in Sources */,
 				481724D6286C857B008237CF /* DayOfMission.swift in Sources */,
+				48FCAF6D2880426400BDF307 /* Extension+Date.swift in Sources */,
 				489B3AEA286EFB3E00D23E8A /* PickMissionView.swift in Sources */,
 				48B9AD0F2878662A00965313 /* MissionPresetViewModel.swift in Sources */,
 				486C156028734E5400F9BE07 /* MissionStatus.swift in Sources */,

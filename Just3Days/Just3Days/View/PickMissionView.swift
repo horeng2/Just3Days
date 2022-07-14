@@ -110,7 +110,7 @@ extension PickMissionView {
             Text(day.discription)
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            Text(pickedMissions[day]?.title ?? "")
+            Text(pickedMissions[day]?.title ?? "미션을 뽑아주세요")
                 .font(.system(size: 18))
         }
     }
@@ -118,14 +118,14 @@ extension PickMissionView {
     func alertOfpickResult() -> Alert {
         if chance == .zero {
             let button = Alert.Button.default(Text("이대로 결정")) {
-                missionLogViewModel.saveMissionSet(pickedMissions)
+                missionLogViewModel.saveCurrntMissionSet(pickedMissions)
             }
             return Alert(title: Text("다시 뽑기 기회를 다 썼어요!"), message: nil, dismissButton: button)
         } else {
             let firstButton = Alert.Button.cancel(Text("다시 뽑기"))
             let secondButton = Alert.Button.default(Text("결정")) {
                 chance = .zero
-                missionLogViewModel.saveMissionSet(pickedMissions)
+                missionLogViewModel.saveCurrntMissionSet(pickedMissions)
             }
             return Alert(title: Text("뽑기 결과"),
                          message: Text("""

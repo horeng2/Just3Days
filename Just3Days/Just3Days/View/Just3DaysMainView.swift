@@ -18,13 +18,13 @@ struct Just3DaysMainView: View {
     
     var body: some View {
         TabView(selection: $index) {
-            TodaysMissionView(isSuccess: false)
+            TodaysMissionView()
                 .tabItem{
                     Image(systemName: "flame")
                     Text("Today")
                 }
                 .tag(0)
-            PickMissionView(missionLogViewModel: missionLogViewModel, pickedMissions: missionLogViewModel.fetch(),index: $index)
+            PickMissionView(missionLogViewModel: missionLogViewModel, pickedMissions: missionLogViewModel.fetchCurrentMissions(),index: $index)
                 .tabItem {
                     Image(systemName: "die.face.5")
                     Text("Pick")
