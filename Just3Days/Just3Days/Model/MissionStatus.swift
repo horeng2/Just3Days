@@ -7,31 +7,41 @@
 
 import Foundation
 
-struct MissionStatus {
-    let isSuccess: Bool
-    let imageName: String
-    let discription: String
-    let firstButtonTitle: String
-    let secondButtonTitle: String
+enum MissionStatus {
+    case imageName
+    case discription
+    case firstButtonTitle
+    case secondButtonTitle
     
-    init(_ isSuccess: Bool) {
-        self.isSuccess = isSuccess
+    func text(isSuccess: Bool) -> String {
         if isSuccess {
-            self .imageName = "MissionSuccess"
-            self.discription = """
+            switch self {
+            case .imageName:
+                return "MissionSuccess"
+            case .discription:
+                return """
                             오 늘 도
                             내 가 해 냈 다!
                             """
-            self.firstButtonTitle = "나의 업적 감상하기"
-            self.secondButtonTitle = "만천하에 알리기"
+            case .firstButtonTitle:
+                return "나의 업적 감상하기"
+            case .secondButtonTitle:
+                return "만천하에 알리기"
+            }
         } else {
-            self .imageName = "TodaysMission"
-            self.discription = """
+            switch self {
+            case .imageName:
+                return "TodaysMission"
+            case .discription:
+                return """
                             오 늘 도
                             곧 해치울 미션입니다.
                             """
-            self.firstButtonTitle = "해냈어요!"
-            self.secondButtonTitle = "오늘은 그럴 일이 있어서 안할래요!"
+            case .firstButtonTitle:
+                return "해냈어요!"
+            case .secondButtonTitle:
+                return "오늘은 그럴 일이 있어서 안할래요!"
+            }
         }
     }
 }
