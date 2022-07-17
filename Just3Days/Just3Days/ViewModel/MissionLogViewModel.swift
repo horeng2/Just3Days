@@ -26,8 +26,12 @@ class MissionLogViewModel: ObservableObject {
         }
     }
     
-    func updateSuccess(_ mission: Mission, date: String) {
-        self.missionLog[date]?.isSuccess = true
+    func updateMissionStatus(_ mission: Mission, isSuccess: Bool) {
+        self.missionLog[Date().toString()]?.isChecked = true
+        
+        if isSuccess {
+            self.missionLog[Date().toString()]?.isSuccess = true
+        }
     }
     
     func fetchTodayMission(today: Date) -> Mission {
