@@ -16,11 +16,11 @@ struct TodaysMissionView: View {
         
         VStack {
             headerView()
-            missionTitleView()
-            missionStatusImageView(MissionStatus.imageName.text(isSuccess: todayMission.isSuccess))
-            missionStatusTextView(MissionStatus.discription.text(isSuccess: todayMission.isSuccess))
-            firstButtonView(title: MissionStatus.firstButtonTitle.text(isSuccess: todayMission.isSuccess))
-            secondButtonView(title: MissionStatus.secondButtonTitle.text(isSuccess: todayMission.isSuccess))
+            missionTitleView(of: todayMission)
+            missionStatusImageView(MissionStatus.imageName.text(isChecked: todayMission.isChecked))
+            missionStatusTextView(MissionStatus.discription.text(isChecked: todayMission.isChecked))
+            firstButtonView(of: todayMission)
+            secondButtonView(of: todayMission)
         }
         .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         .background(ColorPalette.beige.rgb())
@@ -34,8 +34,8 @@ extension TodaysMissionView {
             .fontWeight(.bold)
     }
      
-    func missionTitleView() -> some View {
-        return Text("미션내용")
+    func missionTitleView(of mission: Mission) -> some View {
+        return Text(mission.title)
             .font(.system(size: 25))
             .padding(.top, 40)
     }
@@ -56,9 +56,15 @@ extension TodaysMissionView {
             .padding(.top, 40)
     }
     
-    func firstButtonView(title: String) -> some View {
-        Button(action: {print("firstButton 클릭")}) {
-            Text(title)
+    func firstButtonView(of mission: Mission) -> some View {
+        Button {
+            if mission.isChecked {
+                print("나의 업적 감상하기")
+            } else {
+                missionLogViewModel.updateMissionStatus(mission, isSuccess: true)
+            }
+        } label: {
+            Text(MissionStatus.firstButtonTitle.text(isChecked: mission.isChecked))
                 .font(.system(size: 20))
                 .fontWeight(.bold)
                 .frame(width: 320, height: 50, alignment: .center)
@@ -69,9 +75,15 @@ extension TodaysMissionView {
         .padding(.top, 40)
     }
     
-    func secondButtonView(title: String) -> some View {
-        Button(action: {print("안할래요 클릭")}) {
-            Text(title)
+    func secondButtonView(of mission: Mission) -> some View {
+        Button {
+            if mission.isChecked {
+                print("만천하에 알리기")
+            } else {
+                missionLogViewModel.updateMissionStatus(mission, isSuccess: false)
+            }
+        } label: {
+            Text(MissionStatus.secondButtonTitle.text(isChecked: mission.isChecked))
                 .font(.system(size: 20))
                 .fontWeight(.bold)
                 .frame(width: 320, height: 50, alignment: .center)
