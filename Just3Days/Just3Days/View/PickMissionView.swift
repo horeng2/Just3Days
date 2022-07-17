@@ -119,6 +119,7 @@ extension PickMissionView {
         if chance == .zero {
             let button = Alert.Button.default(Text("이대로 결정")) {
                 missionLogViewModel.saveCurrntMissionSet(pickedMissions)
+                missionLogViewModel.saveMissionLog()
             }
             return Alert(title: Text("다시 뽑기 기회를 다 썼어요!"), message: nil, dismissButton: button)
         } else {
@@ -126,6 +127,7 @@ extension PickMissionView {
             let secondButton = Alert.Button.default(Text("결정")) {
                 chance = .zero
                 missionLogViewModel.saveCurrntMissionSet(pickedMissions)
+                missionLogViewModel.saveMissionLog()
             }
             return Alert(title: Text("뽑기 결과"),
                          message: Text("""
