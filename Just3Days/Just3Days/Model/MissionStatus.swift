@@ -13,8 +13,8 @@ enum MissionStatus {
     case firstButtonTitle
     case secondButtonTitle
     
-    func text(isSuccess: Bool) -> String {
-        if isSuccess {
+    func text(isChecked: Bool) -> String {
+        if isChecked {
             switch self {
             case .imageName:
                 return "MissionSuccess"
