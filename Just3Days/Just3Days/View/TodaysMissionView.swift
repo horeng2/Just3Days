@@ -10,14 +10,15 @@ import SwiftUI
 
 struct TodaysMissionView: View {
     @EnvironmentObject var missionLogViewModel: MissionLogViewModel
+    @State var isChecked = false
     
     var body: some View {
         if let todayMission = missionLogViewModel.fetchTodayMission(today: Date()) {
             VStack {
                 headerView()
                 missionTitleView(of: todayMission)
-                missionStatusImageView(MissionStatus.imageName.text(isChecked: todayMission.isChecked))
-                missionStatusTextView(MissionStatus.discription.text(isChecked: todayMission.isChecked))
+                missionStatusImageView()
+                missionStatusTextView()
                 firstButtonView(of: todayMission)
                 secondButtonView(of: todayMission)
             }
@@ -27,7 +28,6 @@ struct TodaysMissionView: View {
             Text("미션을 뽑아주세요.")
         }
     }
-        
 }
 
 extension TodaysMissionView {
@@ -36,22 +36,22 @@ extension TodaysMissionView {
             .font(.system(size: 32))
             .fontWeight(.bold)
     }
-     
+    
     func missionTitleView(of mission: Mission) -> some View {
         return Text(mission.title)
             .font(.system(size: 25))
             .padding(.top, 40)
     }
     
-    func missionStatusImageView(_ imageName: String) -> some View {
-        return Image(imageName)
+    func missionStatusImageView() -> some View {
+        return Image(MissionStatus.imageName.text(isChecked: isChecked))
             .resizable()
             .frame(width: 150, height: 150, alignment: .center)
             .padding(.top)
     }
     
-    func missionStatusTextView(_ discription: String) -> some View {
-        return Text(discription)
+    func missionStatusTextView() -> some View {
+        return Text(MissionStatus.discription.text(isChecked: isChecked))
             .font(.system(size: 30))
             .fontWeight(.bold)
             .multilineTextAlignment(.center)
@@ -64,6 +64,7 @@ extension TodaysMissionView {
             if mission.isChecked {
                 print("나의 업적 감상하기")
             } else {
+                isChecked = true
                 missionLogViewModel.updateMissionStatus(mission, isSuccess: true)
             }
         } label: {
@@ -83,6 +84,7 @@ extension TodaysMissionView {
             if mission.isChecked {
                 print("만천하에 알리기")
             } else {
+                isChecked = true
                 missionLogViewModel.updateMissionStatus(mission, isSuccess: false)
             }
         } label: {
@@ -97,9 +99,3 @@ extension TodaysMissionView {
         .padding(.top, 10)
     }
 }
-
-//struct TodaysMissionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TodaysMissionView()
-//    }
-//}
