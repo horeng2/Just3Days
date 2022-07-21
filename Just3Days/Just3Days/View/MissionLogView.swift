@@ -9,36 +9,34 @@ import Foundation
 import SwiftUI
 
 struct MissionLogView: View {
+    @State var date = Date()
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                MissionLogHeaderView()
-                MissionLogCalendarView()
-                MissionLogDiscriptionView()
+                headerView()
+                calendarView()
+                logDiscriptionView()
             }
         }
     }
 }
 
-struct MissionLogHeaderView: View {
-    var body: some View {
-        Text("""
+extension MissionLogView {
+    func headerView() -> some View {
+        return Text("""
             지금까지
             5일이나 성공했어요.
             """)
-            .font(.system(size: 27))
-            .fontWeight(.bold)
-            .foregroundColor(ColorPalette.mainOrange.rgb())
-            .multilineTextAlignment(.center)
-            .padding(.top, 40)
+        .font(.system(size: 27))
+        .fontWeight(.bold)
+        .foregroundColor(ColorPalette.mainOrange.rgb())
+        .multilineTextAlignment(.center)
+        .padding(.top, 40)
     }
-}
-
-struct MissionLogCalendarView: View {
-    @State var date = Date()
-
-    var body: some View {
-        DatePicker("달력", selection: $date, displayedComponents: .date)
+    
+    func calendarView() -> some View {
+        return DatePicker("달력", selection: $date, displayedComponents: .date)
             .datePickerStyle(.graphical)
             .accentColor(ColorPalette.mainOrange.rgb())
             .background(
@@ -48,11 +46,9 @@ struct MissionLogCalendarView: View {
             )
             .padding(.horizontal, 30)
     }
-}
-
-struct MissionLogDiscriptionView: View {
-    var body: some View {
-        VStack {
+    
+    func logDiscriptionView() -> some View {
+        return VStack {
             Text("3일 미션 현황")
                 .font(.system(size: 25))
                 .fontWeight(.bold)
@@ -77,24 +73,23 @@ struct MissionLogDiscriptionView: View {
                 그런 적이 있나요? 기억이 안나요.
                 하지만 정말 궁금하시다면...
                 """)
-                .fixedSize()
-                .multilineTextAlignment(.center)
-                .foregroundColor(Color.gray)
-            Button(action: {print("눈알클릭")}) {
-                Text("👀")
-                    .font(.system(size: 20))
-                    .frame(width: 40, height: 40)
-                    .background(ColorPalette.beige.rgb())
-                    .cornerRadius(25)
-            }
-            .padding(.bottom, 30)
+            .fixedSize()
+            .multilineTextAlignment(.center)
+            .foregroundColor(Color.gray)
+            
+            showHideInfoButton()
         }
         .padding(.top)
     }
-}
-
-struct MissionLogView_Previews: PreviewProvider {
-    static var previews: some View {
-        MissionLogView()
+    
+    func showHideInfoButton() -> some View {
+        return Button(action: {print("눈알클릭")}) {
+            Text("👀")
+                .font(.system(size: 20))
+                .frame(width: 40, height: 40)
+                .background(ColorPalette.beige.rgb())
+                .cornerRadius(25)
+        }
+        .padding(.bottom, 30)
     }
 }

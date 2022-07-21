@@ -14,7 +14,7 @@ enum ViewIndex {
     case EditMissionView
     case MissionLogView
     
-    var index: Int = {
+    var index: Int {
         switch self {
         case .todaysMissionView:
             return 0
