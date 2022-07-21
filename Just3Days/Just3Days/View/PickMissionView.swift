@@ -153,6 +153,7 @@ extension PickMissionView {
         
         DayOfMission.allCases.forEach { day in
             randomMissionSet[day] = shuffledMissions.last
+            randomMissionSet[day]?.dayOfMission = day
             shuffledMissions.removeLast()
         }
         
