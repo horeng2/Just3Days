@@ -9,22 +9,25 @@ import Foundation
 import SwiftUI
 
 struct TodaysMissionView: View {
-    @StateObject var missionLogViewModel = MissionLogViewModel()
+    @EnvironmentObject var missionLogViewModel: MissionLogViewModel
     
     var body: some View {
-        let todayMission = missionLogViewModel.fetchTodayMission(today: Date())
-        
-        VStack {
-            headerView()
-            missionTitleView(of: todayMission)
-            missionStatusImageView(MissionStatus.imageName.text(isChecked: todayMission.isChecked))
-            missionStatusTextView(MissionStatus.discription.text(isChecked: todayMission.isChecked))
-            firstButtonView(of: todayMission)
-            secondButtonView(of: todayMission)
+        if let todayMission = missionLogViewModel.fetchTodayMission(today: Date()) {
+            VStack {
+                headerView()
+                missionTitleView(of: todayMission)
+                missionStatusImageView(MissionStatus.imageName.text(isChecked: todayMission.isChecked))
+                missionStatusTextView(MissionStatus.discription.text(isChecked: todayMission.isChecked))
+                firstButtonView(of: todayMission)
+                secondButtonView(of: todayMission)
+            }
+            .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+            .background(ColorPalette.beige.rgb())
+        } else {
+            Text("미션을 뽑아주세요.")
         }
-        .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-        .background(ColorPalette.beige.rgb())
     }
+        
 }
 
 extension TodaysMissionView {
@@ -95,8 +98,8 @@ extension TodaysMissionView {
     }
 }
 
-struct TodaysMissionView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodaysMissionView()
-    }
-}
+//struct TodaysMissionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TodaysMissionView()
+//    }
+//}

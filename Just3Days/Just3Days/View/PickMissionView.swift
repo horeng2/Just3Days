@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PickMissionView: View {
-    @StateObject var missionLogViewModel = MissionLogViewModel()
+    @EnvironmentObject var missionLogViewModel: MissionLogViewModel
     @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
     @State var chance = 5
     @State var isTapPickButton = false
@@ -106,11 +106,19 @@ extension PickMissionView {
 //MARK: - Loading Content
 extension PickMissionView {
     func dailyMissionView(of day: DayOfMission) -> some View {
+        let missionTitle: String = {
+            if let mission = pickedMissions[day] {
+                return mission.title
+            } else {
+                return "미션을 뽑아주세요."
+            }
+        }()
+        
         return VStack {
             Text(day.discription)
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            Text(pickedMissions[day]?.title ?? "미션을 뽑아주세요")
+            Text(missionTitle)
                 .font(.system(size: 18))
         }
     }
@@ -119,7 +127,6 @@ extension PickMissionView {
         if chance == .zero {
             let button = Alert.Button.default(Text("이대로 결정")) {
                 missionLogViewModel.saveCurrntMissionSet(pickedMissions)
-                missionLogViewModel.saveMissionLog()
             }
             return Alert(title: Text("다시 뽑기 기회를 다 썼어요!"), message: nil, dismissButton: button)
         } else {
@@ -127,7 +134,6 @@ extension PickMissionView {
             let secondButton = Alert.Button.default(Text("결정")) {
                 chance = .zero
                 missionLogViewModel.saveCurrntMissionSet(pickedMissions)
-                missionLogViewModel.saveMissionLog()
             }
             return Alert(title: Text("뽑기 결과"),
                          message: Text("""

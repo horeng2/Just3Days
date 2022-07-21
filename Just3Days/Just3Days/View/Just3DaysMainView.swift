@@ -24,7 +24,7 @@ struct Just3DaysMainView: View {
                     Text("Today")
                 }
                 .tag(0)
-            PickMissionView(missionLogViewModel: missionLogViewModel, pickedMissions: missionLogViewModel.fetchCurrentMissions(),index: $index)
+            PickMissionView(pickedMissions: missionLogViewModel.fetchCurrentMissions(),index: $index)
                 .tabItem {
                     Image(systemName: "die.face.5")
                     Text("Pick")

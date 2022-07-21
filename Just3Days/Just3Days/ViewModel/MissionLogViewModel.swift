@@ -11,7 +11,6 @@ import Combine
 class MissionLogViewModel: ObservableObject {
     @Published var missionLog = [String: Mission]()
     @Published var currntMissionSet = [DayOfMission: Mission]()
-    let missionPresetViewModel = MissionPresetViewModel()
     
     func saveMissionLog() {
         currntMissionSet.forEach { day, mission in
@@ -34,24 +33,15 @@ class MissionLogViewModel: ObservableObject {
         }
     }
     
-    func fetchTodayMission(today: Date) -> Mission {
+    func fetchTodayMission(today: Date) -> Mission? {
         guard let mission = self.currntMissionSet.filter({ $0.key.date == today.toString() }).values.first else {
-            return Mission(title: "")
+            return nil
         }
         
         return mission
     }
     
     func fetchCurrentMissions() -> [DayOfMission: Mission] {
-        var missionSet = [DayOfMission: Mission]()
-        if currntMissionSet.isEmpty {
-            DayOfMission.allCases.forEach { day in
-                missionSet[day] = Mission(title: "미션을 뽑아주세요.")
-            }
-        } else {
-            missionSet = currntMissionSet
-        }
-
         return currntMissionSet
     }
 }
