@@ -10,18 +10,24 @@ import Combine
 
 class MissionLogViewModel: ObservableObject {
     @Published var missionLog = [String: Mission]()
-    @Published var currntMissionSet = [DayOfMission: Mission]()
+    @Published var currentMissionSet = [DayOfMission: Mission]()
     
     func saveMissionLog() {
-        currntMissionSet.forEach { day, mission in
+        let successCount = currentMissionSet.filter{ $0.value.isSuccess }.count
+
+        currentMissionSet.forEach { day, mission in
+            if successCount >= 2 {
+                currentMissionSet[day]?.setClear = true
+            }
             self.missionLog[day.date] = mission
         }
-        currntMissionSet.removeAll()
+        
+        currentMissionSet.removeAll()
     }
     
     func saveCurrntMissionSet(_ missions: [DayOfMission: Mission]) {
         missions.forEach{ day, mission in
-            self.currntMissionSet[day] = mission
+            self.currentMissionSet[day] = mission
         }
     }
     
@@ -31,10 +37,14 @@ class MissionLogViewModel: ObservableObject {
         if isSuccess {
             self.missionLog[Date().toString()]?.isSuccess = true
         }
+        
+        if mission.dayOfMission == .thirdDay {
+            self.saveMissionLog()
+        }
     }
     
     func fetchTodayMission(today: Date) -> Mission? {
-        guard let mission = self.currntMissionSet.filter({ $0.key.date == today.toString() }).values.first else {
+        guard let mission = self.currentMissionSet.filter({ $0.key.date == today.toString() }).values.first else {
             return nil
         }
         
@@ -42,6 +52,6 @@ class MissionLogViewModel: ObservableObject {
     }
     
     func fetchCurrentMissions() -> [DayOfMission: Mission] {
-        return currntMissionSet
+        return currentMissionSet
     }
 }
