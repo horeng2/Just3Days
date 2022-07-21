@@ -64,7 +64,7 @@ extension TodaysMissionView {
         Button {
             //나의 업적 감상하기
             if isChecked {
-                self.index = 3
+                self.index = ViewIndex.MissionLogView.index
             // 미션 완료
             } else {
                 isChecked = true

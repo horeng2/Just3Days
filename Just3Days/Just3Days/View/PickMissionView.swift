@@ -97,7 +97,7 @@ extension PickMissionView {
     func alertEmptyPreset() -> Alert {
         let cancelButton = Alert.Button.cancel(Text("취소"))
         let moveButton = Alert.Button.default(Text("등록")) {
-            self.index = 2
+            self.index = ViewIndex.MissionPresetView.index
         }
         return Alert(title: Text("미션을 3개 이상 등록해주세요!"), primaryButton: cancelButton, secondaryButton: moveButton)
     }
