@@ -96,9 +96,3 @@ extension MissionPresetView {
     }
 }
 
-
-struct MissionPresetView_Previews: PreviewProvider {
-    static var previews: some View {
-        MissionPresetView()
-    }
-}

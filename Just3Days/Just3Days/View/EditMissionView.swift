@@ -13,26 +13,21 @@ struct EditMissionView: View {
     @Binding var isEditMissionView: Bool
     @State var isModifyMode: Bool
     @State var mission = Mission(title: "")
+    @State var emptyValue = false
     
     var body: some View {
         VStack {
-            EditMissionTitleView(mission: $mission)
-            EditMissionPossibleDayView(mission: $mission)
+            titleView()
+            pickPossibleDayView()
             Spacer()
-            ExitButtonsView(
-                isEditMissionView: $isEditMissionView,
-                isModifyMode: $isModifyMode,
-                mission: $mission
-            )
+            exitButtonsView()
         }
     }
 }
 
-struct EditMissionTitleView: View {
-    @Binding var mission: Mission
-    
-    var body: some View {
-        TextField(mission.title, text: $mission.title)
+extension EditMissionView {
+    func titleView() -> some View {
+        return TextField(mission.title, text: $mission.title)
             .placeholder(when: mission.title.isEmpty, alignment: .center) {
                 Text("미션명을 입력해주세요")
                     .font(.system(size: 30))
@@ -44,13 +39,9 @@ struct EditMissionTitleView: View {
             .foregroundColor(.black)
             .padding(.top, 40)
     }
-}
-
-struct EditMissionPossibleDayView: View {
-    @Binding var mission: Mission
     
-    var body: some View {
-        VStack(alignment: .leading) {
+    func pickPossibleDayView() -> some View {
+        return VStack(alignment: .leading) {
             Text("언제 할 수 있나요?")
                 .font(.system(size: 20))
                 .fontWeight(.bold)
@@ -58,36 +49,32 @@ struct EditMissionPossibleDayView: View {
                 .foregroundColor(.black)
                 .padding(.top)
                 .padding()
-            
-            ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDayOption in
-                Button {
-                    mission.possibleDay = possibleDayOption
-                } label: {
-                    HStack {
-                        Image(systemName: mission.possibleDay == possibleDayOption ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(ColorPalette.mainOrange.rgb())
-                    }
-                    Text(possibleDayOption.message())
-                        .foregroundColor(.black)
-                }
-                .listRowSeparator(.hidden)
-                .listSectionSeparator(.hidden)
-                .padding()
-            }
+            possibleDaysView()
         }
         .listStyle(.plain)
         .padding(.leading, 30)
     }
-}
-
-struct ExitButtonsView: View {
-    @EnvironmentObject var missionPresetViewModel: MissionPresetViewModel
-    @Binding var isEditMissionView: Bool
-    @Binding var isModifyMode: Bool
-    @Binding var mission: Mission
     
-    var body: some View {
-        HStack {
+    func possibleDaysView() -> some View {
+        return ForEach(MissionPossibleDay.allCases, id: \.self) { possibleDayOption in
+            Button {
+                mission.possibleDay = possibleDayOption
+            } label: {
+                HStack {
+                    Image(systemName: mission.possibleDay == possibleDayOption ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(ColorPalette.mainOrange.rgb())
+                }
+                Text(possibleDayOption.message())
+                    .foregroundColor(.black)
+            }
+            .listRowSeparator(.hidden)
+            .listSectionSeparator(.hidden)
+            .padding()
+        }
+    }
+    
+    func exitButtonsView() -> some View {
+        return HStack {
             Button {
                 isEditMissionView = false
             } label: {
@@ -102,8 +89,12 @@ struct ExitButtonsView: View {
             .padding(.trailing, 30)
             
             Button {
-                isEditMissionView = false
-                missionPresetViewModel.save(mission, isModifyMode: isModifyMode)
+                if mission.title.isEmpty || mission.possibleDay == nil {
+                    emptyValue = true
+                } else {
+                    isEditMissionView = false
+                    missionPresetViewModel.save(mission, isModifyMode: isModifyMode)
+                }
             } label: {
                 Text("저장")
                     .font(.system(size: 20))
@@ -113,6 +104,7 @@ struct ExitButtonsView: View {
                     .background(ColorPalette.beige.rgb())
                     .cornerRadius(20)
             }
+            .alert(Text("모든 값을 입력해주세요."), isPresented: $emptyValue, actions: {})
         }
         .padding(.bottom, 30)
     }
