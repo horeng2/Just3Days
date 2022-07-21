@@ -62,14 +62,16 @@ extension TodaysMissionView {
     
     func firstButtonView(of mission: Mission) -> some View {
         Button {
-            if mission.isChecked {
+            //나의 업적 감상하기
+            if isChecked {
                 self.index = 3
+            // 미션 완료
             } else {
                 isChecked = true
                 missionLogViewModel.updateMissionStatus(mission, isSuccess: true)
             }
         } label: {
-            Text(MissionStatus.firstButtonTitle.text(isChecked: mission.isChecked))
+            Text(MissionStatus.firstButtonTitle.text(isChecked: isChecked))
                 .font(.system(size: 20))
                 .fontWeight(.bold)
                 .frame(width: 320, height: 50, alignment: .center)
@@ -82,14 +84,16 @@ extension TodaysMissionView {
     
     func secondButtonView(of mission: Mission) -> some View {
         Button {
-            if mission.isChecked {
+            //만천하에 알리기
+            if isChecked {
                 print("만천하에 알리기")
+            //오늘은 안할래요
             } else {
                 isChecked = true
                 missionLogViewModel.updateMissionStatus(mission, isSuccess: false)
             }
         } label: {
-            Text(MissionStatus.secondButtonTitle.text(isChecked: mission.isChecked))
+            Text(MissionStatus.secondButtonTitle.text(isChecked: isChecked))
                 .font(.system(size: 20))
                 .fontWeight(.bold)
                 .frame(width: 320, height: 50, alignment: .center)
