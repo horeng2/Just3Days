@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct TodaysMissionView: View {
+    @Binding var index: Int
     @EnvironmentObject var missionLogViewModel: MissionLogViewModel
     @State var isChecked = false
     
@@ -62,7 +63,7 @@ extension TodaysMissionView {
     func firstButtonView(of mission: Mission) -> some View {
         Button {
             if mission.isChecked {
-                print("나의 업적 감상하기")
+                self.index = 3
             } else {
                 isChecked = true
                 missionLogViewModel.updateMissionStatus(mission, isSuccess: true)

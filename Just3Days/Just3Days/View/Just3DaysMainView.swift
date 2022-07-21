@@ -18,7 +18,7 @@ struct Just3DaysMainView: View {
     
     var body: some View {
         TabView(selection: $index) {
-            TodaysMissionView()
+            TodaysMissionView(index: $index)
                 .tabItem{
                     Image(systemName: "flame")
                     Text("Today")
