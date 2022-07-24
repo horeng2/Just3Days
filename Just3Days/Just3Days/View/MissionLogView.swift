@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 struct MissionLogView: View {
-    @State var date = Date()
+    @EnvironmentObject var missionLogViewModel: MissionLogViewModel
+    @State var date = Date.now
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -24,9 +25,10 @@ struct MissionLogView: View {
 
 extension MissionLogView {
     func headerView() -> some View {
+        let totalClearDayCount = missionLogViewModel.fetchMissionClearCount(filter: .perfectClear) + missionLogViewModel.fetchMissionClearCount(filter: .clear)
         return Text("""
             지금까지
-            5일이나 성공했어요.
+            \(totalClearDayCount)일이나 성공했어요.
             """)
         .font(.system(size: 27))
         .fontWeight(.bold)
@@ -57,13 +59,13 @@ extension MissionLogView {
                 .font(.system(size: 22))
                 .fontWeight(.bold)
                 .foregroundColor(ColorPalette.mainOrange.rgb())
-            Text("3회")
+            Text("\(missionLogViewModel.fetchMissionClearCount(filter: .perfectClear))회")
                 .padding(.bottom, 5)
             Text("어쨌든클리어")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
                 .foregroundColor(ColorPalette.orange.rgb())
-            Text("2회")
+            Text("\(missionLogViewModel.fetchMissionClearCount(filter: .clear))회")
                 .padding(.bottom, 5)
             Text("미션실패")
                 .font(.system(size: 22))
