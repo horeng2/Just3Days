@@ -14,12 +14,12 @@ struct Mission: Identifiable {
     var possibleDay: MissionPossibleDay?
     var clearDate: String?
     var dayOfMission: DayOfMission?
-    var stautus: MissionClear
+    var status: MissionClear
     
     init(title: String) {
         self.id = UUID().uuidString
         self.emoji = "🔥"
         self.title = title
-        self.stautus = .failure
+        self.status = .failure
     }
 }

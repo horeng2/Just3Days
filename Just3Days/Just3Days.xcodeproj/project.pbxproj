@@ -17,6 +17,13 @@
 		481724C6286C8451008237CF /* Just3DaysUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724C5286C8451008237CF /* Just3DaysUITestsLaunchTests.swift */; };
 		481724D4286C8550008237CF /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724D3286C8550008237CF /* Mission.swift */; };
 		481724D6286C857B008237CF /* DayOfMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481724D5286C857B008237CF /* DayOfMission.swift */; };
+		482F0139288DA9D400C28D5E /* MissionData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 482F0137288DA9D400C28D5E /* MissionData.xcdatamodeld */; };
+		482F0140288DAE1800C28D5E /* Preset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482F013A288DAE1800C28D5E /* Preset+CoreDataClass.swift */; };
+		482F0141288DAE1800C28D5E /* Preset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482F013B288DAE1800C28D5E /* Preset+CoreDataProperties.swift */; };
+		482F0142288DAE1800C28D5E /* Log+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482F013C288DAE1800C28D5E /* Log+CoreDataClass.swift */; };
+		482F0143288DAE1800C28D5E /* Log+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482F013D288DAE1800C28D5E /* Log+CoreDataProperties.swift */; };
+		482F0144288DAE1800C28D5E /* CurrentMissions+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482F013E288DAE1800C28D5E /* CurrentMissions+CoreDataClass.swift */; };
+		482F0145288DAE1800C28D5E /* CurrentMissions+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482F013F288DAE1800C28D5E /* CurrentMissions+CoreDataProperties.swift */; };
 		484A5678287AFCDB0015FA7C /* MissionLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A5677287AFCDB0015FA7C /* MissionLogViewModel.swift */; };
 		484F3F84288988510019516D /* ViewIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F3F83288988510019516D /* ViewIndex.swift */; };
 		486C156028734E5400F9BE07 /* MissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486C155F28734E5400F9BE07 /* MissionStatus.swift */; };
@@ -62,6 +69,13 @@
 		481724C5286C8451008237CF /* Just3DaysUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Just3DaysUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		481724D3286C8550008237CF /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		481724D5286C857B008237CF /* DayOfMission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfMission.swift; sourceTree = "<group>"; };
+		482F0138288DA9D400C28D5E /* MissionData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MissionData.xcdatamodel; sourceTree = "<group>"; };
+		482F013A288DAE1800C28D5E /* Preset+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+CoreDataClass.swift"; sourceTree = "<group>"; };
+		482F013B288DAE1800C28D5E /* Preset+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		482F013C288DAE1800C28D5E /* Log+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+CoreDataClass.swift"; sourceTree = "<group>"; };
+		482F013D288DAE1800C28D5E /* Log+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		482F013E288DAE1800C28D5E /* CurrentMissions+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentMissions+CoreDataClass.swift"; sourceTree = "<group>"; };
+		482F013F288DAE1800C28D5E /* CurrentMissions+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentMissions+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		484A5677287AFCDB0015FA7C /* MissionLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionLogViewModel.swift; sourceTree = "<group>"; };
 		484F3F83288988510019516D /* ViewIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewIndex.swift; sourceTree = "<group>"; };
 		486C155F28734E5400F9BE07 /* MissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionStatus.swift; sourceTree = "<group>"; };
@@ -127,6 +141,12 @@
 		4817249C286C8450008237CF = {
 			isa = PBXGroup;
 			children = (
+				482F013A288DAE1800C28D5E /* Preset+CoreDataClass.swift */,
+				482F013B288DAE1800C28D5E /* Preset+CoreDataProperties.swift */,
+				482F013C288DAE1800C28D5E /* Log+CoreDataClass.swift */,
+				482F013D288DAE1800C28D5E /* Log+CoreDataProperties.swift */,
+				482F013E288DAE1800C28D5E /* CurrentMissions+CoreDataClass.swift */,
+				482F013F288DAE1800C28D5E /* CurrentMissions+CoreDataProperties.swift */,
 				481724A7286C8450008237CF /* Just3Days */,
 				481724B8286C8451008237CF /* Just3DaysTests */,
 				481724C2286C8451008237CF /* Just3DaysUITests */,
@@ -149,6 +169,7 @@
 			children = (
 				481724AC286C8451008237CF /* Assets.xcassets */,
 				481724A8286C8450008237CF /* Just3DaysApp.swift */,
+				482F0137288DA9D400C28D5E /* MissionData.xcdatamodeld */,
 				481724AE286C8451008237CF /* Preview Content */,
 				48059CBD286EB3D90035C8B0 /* View */,
 				48B9AD0D2878661D00965313 /* ViewModel */,
@@ -338,18 +359,25 @@
 				486C15642874336400F9BE07 /* EditMissionView.swift in Sources */,
 				48E7B66B2870020700C69C33 /* TodaysMissionView.swift in Sources */,
 				486C15662874551E00F9BE07 /* MissionPossibleDay.swift in Sources */,
+				482F0141288DAE1800C28D5E /* Preset+CoreDataProperties.swift in Sources */,
 				481724D6286C857B008237CF /* DayOfMission.swift in Sources */,
+				482F0144288DAE1800C28D5E /* CurrentMissions+CoreDataClass.swift in Sources */,
 				48FCAF6D2880426400BDF307 /* Extension+Date.swift in Sources */,
 				489B3AEA286EFB3E00D23E8A /* PickMissionView.swift in Sources */,
 				48B9AD0F2878662A00965313 /* MissionPresetViewModel.swift in Sources */,
 				486C156028734E5400F9BE07 /* MissionStatus.swift in Sources */,
+				482F0143288DAE1800C28D5E /* Log+CoreDataProperties.swift in Sources */,
 				481724AB286C8450008237CF /* Just3DaysMainView.swift in Sources */,
+				482F0140288DAE1800C28D5E /* Preset+CoreDataClass.swift in Sources */,
 				484A5678287AFCDB0015FA7C /* MissionLogViewModel.swift in Sources */,
 				481724A9286C8450008237CF /* Just3DaysApp.swift in Sources */,
+				482F0139288DA9D400C28D5E /* MissionData.xcdatamodeld in Sources */,
 				486C1568287457FC00F9BE07 /* MissionLogView.swift in Sources */,
 				484F3F84288988510019516D /* ViewIndex.swift in Sources */,
 				489B3AEC286F38FE00D23E8A /* ColorPalette.swift in Sources */,
 				481606DF2874A7690085A808 /* Extension+View.swift in Sources */,
+				482F0142288DAE1800C28D5E /* Log+CoreDataClass.swift in Sources */,
+				482F0145288DAE1800C28D5E /* CurrentMissions+CoreDataProperties.swift in Sources */,
 				486C15622873566600F9BE07 /* MissionPresetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,6 +701,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		482F0137288DA9D400C28D5E /* MissionData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				482F0138288DA9D400C28D5E /* MissionData.xcdatamodel */,
+			);
+			currentVersion = 482F0138288DA9D400C28D5E /* MissionData.xcdatamodel */;
+			path = MissionData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4817249D286C8450008237CF /* Project object */;
 }

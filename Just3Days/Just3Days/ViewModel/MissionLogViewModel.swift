@@ -27,13 +27,13 @@ class MissionLogViewModel: ObservableObject {
         let count: Int = {
             switch filter {
             case .setClear:
-                return self.missionLog.filter{ $0.value.stautus == .setClear || $0.value.stautus == .perfectClear}.count
+                return self.missionLog.filter{ $0.value.status == .setClear || $0.value.status == .perfectClear}.count
             case .perfectClear:
-                return self.missionLog.filter{ $0.value.stautus == .perfectClear }.count
+                return self.missionLog.filter{ $0.value.status == .perfectClear }.count
             case .clear:
-                return self.missionLog.filter{ $0.value.stautus == .clear }.count
+                return self.missionLog.filter{ $0.value.status == .clear }.count
             case .failure:
-                return self.missionLog.filter{ $0.value.stautus == .failure }.count
+                return self.missionLog.filter{ $0.value.status == .failure }.count
             }
         }()
         
@@ -54,7 +54,7 @@ class MissionLogViewModel: ObservableObject {
         }
     
         if isSuccess {
-            currentMissionSet[missionDay]?.stautus = .perfectClear
+            currentMissionSet[missionDay]?.status = .perfectClear
         }
         missionLog[Date.now.toString()] = currentMissionSet[missionDay]
 
@@ -64,13 +64,13 @@ class MissionLogViewModel: ObservableObject {
     }
     
     func clearMissionSet() {
-        let successCount = currentMissionSet.filter{ $0.value.stautus == .perfectClear }.count
+        let successCount = currentMissionSet.filter{ $0.value.status == .perfectClear }.count
       
         if successCount >= 2 {
             currentMissionSet.forEach { day, mission in
                 var mission = mission
-                if mission.stautus == .failure {
-                    mission.stautus = .clear
+                if mission.status == .failure {
+                    mission.status = .clear
                 }
                 self.missionLog[mission.clearDate ?? ""] = mission
             }

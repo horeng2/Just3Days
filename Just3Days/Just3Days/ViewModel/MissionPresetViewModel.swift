@@ -10,6 +10,13 @@ import Combine
 
 class MissionPresetViewModel: ObservableObject {
     @Published var missionPreset = [String: Mission]()
+    
+    init() {
+
+        self.missionPreset = ["1": Mission(title: "제리똥치우기"),
+                              "2": Mission(title: "무도가 만렙찍기"),
+                              "3": Mission(title: "책상정리")]
+    }
 
     func fetch() -> [Mission] {
         return self.missionPreset.map{ $0.value }
